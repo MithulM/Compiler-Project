@@ -1,6 +1,4 @@
-public class AbstractStmt extends Token {
+public abstract class AbstractStmt extends Token {
         public int production;
-        public String toString(int depth) {
-                return "";
-        }
+        public abstract String toString(int depth);
 }

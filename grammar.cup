@@ -115,11 +115,12 @@ stmt ::=            IF LPAREN expr:e RPAREN LCURLY stmts:s RCURLY ifEnd:el      
                   | PRINTLN LPAREN printlinelist:pll RPAREN SEMI                 {: RESULT = new Stmt("printline", pll); :}
                   | ID:id LPAREN RPAREN SEMI                                     {: RESULT = new FuncCallStmt(id); :}
                   | ID:id LPAREN args:args RPAREN SEMI                           {: RESULT = new FuncCallStmt(id, args); :}
-                  | RETURN SEMI                                                  {: RESULT = new AbstractStmt(); :}
-                  | RETURN expr:e SEMI                                           {: RESULT = new Stmt(e); :}
+                  | RETURN SEMI                                                  {: RESULT = new ReturnStmt(); :}
+                  | RETURN expr:e SEMI                                           {: RESULT = new ReturnStmt(e); :}
                   | name:n INC SEMI                                              {: RESULT = new Stmt(n, "++"); :}
                   | name:n DEC SEMI                                              {: RESULT = new Stmt(n, "--"); :}
                   | LCURLY stmts:sts RCURLY optionalsemi:opsemi                  {: RESULT = new Stmt(sts, opsemi); :};
+//                  | SEMI                                                         {: RESULT = null :};
 
 ifEnd ::=           ELSE stmt:st                                                 {: RESULT = st; :}
                   |                                                              {: RESULT = null; :};

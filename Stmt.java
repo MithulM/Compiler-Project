@@ -58,9 +58,6 @@ class Stmt extends AbstractStmt {
                 String result = "";
                 result += stmts.toString(depth + 1) + "\n";
                 return getTabs(depth) + "{\n" + result + getTabs(depth) + "}";
-            case 8:
-                return getTabs(depth) +
-                        "while (" + expr.toString() + ")\n{" + stmts.toString(depth + 1) + "}\n";
             case 6:
                 list = "";
                 for (Name n : (ArrayList<Name>) funclist) {
@@ -84,17 +81,8 @@ class Stmt extends AbstractStmt {
                 return getTabs(depth) + id + "(" + list + ");";
             case 3:
                 return getTabs(depth) + name.toString() + unaryOp + ";";
-            case 2:
-                return getTabs(depth) + "return " + expr.toString() + ";";
-            case 0:
-                return getTabs(depth) + "return;";
             default:
                 return "";
         }
     }
-
-    public boolean isReturn() {
-        return this.production == 2 | this.production == 0;
-    }
-
 }
