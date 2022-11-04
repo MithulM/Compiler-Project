@@ -1,82 +1,83 @@
-\*_____ ./Phase1_expressions.txt _____*\
+Output of file ./Phase1_expressions.txt
 Program {
-	statment: (	x = x;)
-	statment: (	x = x();)
-	statment: (	x = x(x, x);)
-	statment: (	x = 1;)
-	statment: (	x = 'a';)
-	statment: (	x = "a";)
-	statment: (	x = 1.1;)
-	statment: (	x = true;)
-	statment: (	x = false;)
-	statment: (	x = x;)
-	statment: (	x = (~ x);)
-	statment: (	x = (- x);)
-	statment: (	x = (+ x);)
-	statment: (	x = (int)x;)
-	statment: (	x = (x + x);)
-	statment: (	x = (x * x);)
-	statment: (	x = (x > x);)
-	statment: (	x = ( x ? x : x );)
+	x = x;
+	x = x();
+	x = x(x, x);
+	x = 1;
+	x = 'a';
+	x = "a";
+	x = 1.1;
+	x = true;
+	x = false;
+	x = x;
+	x = (~ x);
+	x = (- x);
+	x = (+ x);
+	x = (int)x;
+	x = (x + x);
+	x = (x * x);
+	x = (x > x);
+	x = ( x ? x : x );
 }
-\*_____ ./Phase1_order_of_ops.txt _____*\
+Output of file ./Phase1_order_of_ops.txt
 Program {
-	statment: (	x = (1 + (2 * 3));)
-	statment: (	x = ((1 * 2) / 3);)
-	statment: (	x = ((1 + 2) - 3);)
-	statment: (	x = ((1 + 2) * 3);)
-	statment: (	x = (1 * (+ 2));)
-	statment: (	x = (1 / (- 2));)
-	statment: (	x = (1 * (~ 2));)
-	statment: (	x = ((1 + 2) > 3);)
-	statment: (	x = ((((1 > 2) < 3) >= 4) <= 5);)
-	statment: (	x = ((((1 <= 2) >= 3) < 4) > 5);)
-	statment: (	x = (1 == (2 < 3));)
-	statment: (	x = ((1 == 2) <> 3);)
-	statment: (	x = (1 && (2 == 3));)
-	statment: (	x = (1 || (2 && 3));)
-	statment: (	x = ( (1 || 2) ? (3 || 4) : (5 || 6) );)
+	x = (1 + (2 * 3));
+	x = ((1 * 2) / 3);
+	x = ((1 + 2) - 3);
+	x = ((1 + 2) * 3);
+	x = (1 * (+ 2));
+	x = (1 / (- 2));
+	x = (1 * (~ 2));
+	x = ((1 + 2) > 3);
+	x = ((((1 > 2) < 3) >= 4) <= 5);
+	x = ((((1 <= 2) >= 3) < 4) > 5);
+	x = (1 == (2 < 3));
+	x = ((1 == 2) <> 3);
+	x = (1 && (2 == 3));
+	x = (1 || (2 && 3));
+	x = ( (1 || 2) ? (3 || 4) : (5 || 6) );
 }
-\*_____ ./Phase1_statements.txt _____*\
+Output of file ./Phase1_statements.txt
 Program {
-	statment: (	if (x)
-		statment: (		x = 0;)
-)
-	statment: (	if (x)
-		statment: (		x = 0;)
+	if (x)
+		x = 0;
+
+	if (x)
+		x = 0;
 
 	else
 	{
 		{
-			statment: (			x = 0;)
+			x = 0;
 
 		}
-	})
-	statment: (	while (x) 		statment: (		x = 0;)
-)
-	statment: (	x = 0;)
-	statment: (	read(x);)
-	statment: (	read(x, x);)
-	statment: (	print(x);)
-	statment: (	print((x + 1), x);)
-	statment: (	printline(x);)
-	statment: (	printline();)
-	statment: (	x();)
-	statment: (	x(x);)
-	statment: (	x(x, x);)
-	statment: (	return;)
-	statment: (	return x;)
-	statment: (	x++;)
-	statment: (	x--;)
-	statment: (	{
-		statment: (		x = 1;)
+	}
+	while (x) {
+		x = 0;
+	}
+	x = 0;
+	read(x);
+	read(x, x);
+	print(x);
+	print((x + 1), x);
+	printline(x);
+	printline();
+	x();
+	x(x);
+	x(x, x);
+	return;
+	return x;
+	x++;
+	x--;
+	{
+		x = 1;
 
-	})
-	statment: (	{
-		statment: (		x = 1;)
+	}
+	{
+		x = 1;
 
-	})
-	statment: (	{
+	}
+	{
 
-	})
+	}
 }

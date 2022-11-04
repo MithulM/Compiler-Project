@@ -30,12 +30,6 @@ class Stmt extends AbstractStmt {
         production = 9;
     }
 
-    public Stmt(Name n, Expr e) {
-        name = n;
-        expr = e;
-        production = 7;
-    }
-
     public Stmt(String func, ArrayList lst) {
         id = func;
         funclist = lst;
@@ -78,9 +72,6 @@ class Stmt extends AbstractStmt {
             case 8:
                 return getTabs(depth) +
                         "while (" + expr.toString() + ")\n{" + stmts.toString(depth + 1) + "}\n";
-            case 7:
-                return getTabs(depth) +
-                        name.toString() + " = " + expr.toString() + ";";
             case 6:
                 list = "";
                 for (Name n : (ArrayList<Name>) funclist) {

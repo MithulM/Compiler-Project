@@ -15,7 +15,7 @@ public class Stmts extends Token{
     public String toString(int depth) {
         String res = "";
         for (AbstractStmt st: sts) {
-            res += getTabs(depth) + "statment: (" + st.toString(depth) + ")\n";
+            res += st.toString(depth) + "\n";
         }
         return res;
     }

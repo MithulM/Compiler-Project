@@ -10,6 +10,7 @@ public class WhileStmt extends AbstractStmt {
 
     @Override
     public String toString(int depth) {
-        return getTabs(depth) + "while (" + exp.toString() + ") " + sts.toString(depth + 1);
+        String tabs = getTabs(depth);
+        return tabs + "while (" + exp.toString() + ") {\n" + sts.toString(depth + 1) + tabs + "}";
     }
 }

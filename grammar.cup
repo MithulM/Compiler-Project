@@ -109,7 +109,7 @@ stmts ::=           stmt:st stmts:sts                                           
 
 stmt ::=            IF LPAREN expr:e RPAREN LCURLY stmts:s RCURLY ifEnd:el       {: RESULT = new IfStmt(e, s, el); :}
                   | WHILE LPAREN expr:e RPAREN LCURLY stmts:sts RCURLY           {: RESULT = new WhileStmt(e, sts); :}
-                  | name:n ASSIGN expr:e SEMI                                    {: RESULT = new Stmt(n, e); :}
+                  | name:n ASSIGN expr:e SEMI                                    {: RESULT = new NameStmt(n, e); :}
                   | READ LPAREN readlist:rl RPAREN SEMI                          {: RESULT = new Stmt("read", rl); :}
                   | PRINT LPAREN printlist:pl RPAREN SEMI                        {: RESULT = new Stmt("print", pl); :}
                   | PRINTLN LPAREN printlinelist:pll RPAREN SEMI                 {: RESULT = new Stmt("printline", pll); :}

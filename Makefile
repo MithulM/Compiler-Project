@@ -22,20 +22,10 @@ all: scannerTests
 scannerTests: build
 	@rm -f scannerTestOutputs.txt;
 	@for f in ./*.txt; do \
-		echo "Processing file $$f"; \
-		echo "\\*_____ $$f _____*\\" >> scannerTestOutputs.txt; \
+		echo "Output of file $$f" >> scannerTestOutputs.txt; \
 		$(JAVA) -cp $(CP) ScannerTest $$f >> scannerTestOutputs.txt; \
 	done;
 	@cat -n scannerTestOutputs.txt
-
-lexerTests: build
-	@rm -f lexerTestOutputs.txt;
-	@for f in ./*; do \
-		echo "Processing file $$f"; \
-		echo "\\*_____ $$f _____*\\" >> lexerTestOutputs.txt; \
-		$(JAVA) -cp $(CP) LexerRules $$f >> lexerTestOutputs.txt; \
-	done;
-	@cat -n lexerTestOutputs.txt
 
 build: Lexer.java parser.java $(FILE:java=class)
 
