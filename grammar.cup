@@ -58,8 +58,8 @@ terminal String FLOATLIT;
 
 non terminal Program program;
 non terminal Stmts stmts;
-non terminal Stmt stmt;
-non terminal Stmt ifEnd;
+non terminal AbstractStmt stmt;
+non terminal AbstractStmt ifEnd;
 non terminal Name name;
 non terminal ArrayList<Expr> args;
 non terminal ArrayList<Name> readlist;
@@ -108,7 +108,7 @@ stmts ::=           stmt:st stmts:sts                                           
                   |                                                              {: RESULT = new Stmts(); :};
 
 stmt ::=            IF LPAREN expr:e RPAREN LCURLY stmts:s RCURLY ifEnd:el       {: RESULT = new Stmt(e, s, el); :}
-                  | WHILE LPAREN expr:e RPAREN LCURLY stmts:sts RCURLY           {: RESULT = new Stmt(e, sts); :}
+                  | WHILE LPAREN expr:e RPAREN LCURLY stmts:sts RCURLY           {: RESULT = new WhileStmt(e, sts); :}
                   | name:n ASSIGN expr:e SEMI                                    {: RESULT = new Stmt(n, e); :}
                   | READ LPAREN readlist:rl RPAREN SEMI                          {: RESULT = new Stmt("read", rl); :}
                   | PRINT LPAREN printlist:pl RPAREN SEMI                        {: RESULT = new Stmt("print", pl); :}

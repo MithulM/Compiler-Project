@@ -6,19 +6,19 @@ Section: CS 4386.001
 
 import java.util.ArrayList;
 
-class Stmt extends Token {
+class Stmt extends AbstractStmt {
     int production;
     boolean isLoop, hasSemi;
     Stmts stmts;
     ArrayList funclist;
     ArrayList<Expr> args;
     Expr expr;
-    Stmt stmt, elsestmt;
+    AbstractStmt stmt, elsestmt;
     Name name;
     String id;
     String unaryOp;
 
-    public Stmt(Expr e, Stmts st, Stmt elsest) {
+    public Stmt(Expr e, Stmts st, AbstractStmt elsest) {
         expr = e;
         stmts = st;
         elsestmt = elsest;
@@ -35,12 +35,6 @@ class Stmt extends Token {
         stmts = sts;
         hasSemi = semi;
         production = 9;
-    }
-
-    public Stmt(Expr e, Stmts st) {
-        expr = e;
-        stmts = st;
-        production = 8;
     }
 
     public Stmt(Name n, Expr e) {

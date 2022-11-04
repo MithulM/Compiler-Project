@@ -47,12 +47,12 @@ Program {
 
 	else
 	{
-		statment: (		x = 0;)
+		{
+			statment: (			x = 0;)
 
+		}
 	})
-	statment: (	while (x)
-{		statment: (		x = 0;)
-}
+	statment: (	while (x) 		statment: (		x = 0;)
 )
 	statment: (	x = 0;)
 	statment: (	read(x);)
