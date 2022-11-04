@@ -18,12 +18,6 @@ class Stmt extends AbstractStmt {
     String id;
     String unaryOp;
 
-    public Stmt(String id, ArrayList<Expr> ag, boolean func) {
-        this.id = id;
-        args = ag;
-        production = 10;
-    }
-
     public Stmt(Stmts sts, boolean semi) {
         stmts = sts;
         hasSemi = semi;
@@ -45,11 +39,6 @@ class Stmt extends AbstractStmt {
     public Stmt(Expr e) {
         expr = e;
         production = 2;
-    }
-
-    public Stmt(String id) {
-        this.id = id;
-        production = 1;
     }
 
     public Stmt() {
@@ -97,8 +86,6 @@ class Stmt extends AbstractStmt {
                 return getTabs(depth) + name.toString() + unaryOp + ";";
             case 2:
                 return getTabs(depth) + "return " + expr.toString() + ";";
-            case 1:
-                return getTabs(depth) + id + "();";
             case 0:
                 return getTabs(depth) + "return;";
             default:
