@@ -18,13 +18,6 @@ class Stmt extends AbstractStmt {
     String id;
     String unaryOp;
 
-    public Stmt(Expr e, Stmts st, AbstractStmt elsest) {
-        expr = e;
-        stmts = st;
-        elsestmt = elsest;
-        production = 11;
-    }
-
     public Stmt(String id, ArrayList<Expr> ag, boolean func) {
         this.id = id;
         args = ag;
@@ -71,16 +64,6 @@ class Stmt extends AbstractStmt {
 
     public String toString(int depth) {
         switch (this.production) {
-            case 11:
-                return getTabs(depth) +
-                        "if (" + expr.toString() + ")\n" +
-                        stmts.toString(depth + 1) +
-                        (elsestmt != null
-                                ? "\n" + getTabs(depth) + "else\n"
-                                        + (elsestmt.production == 9 ? elsestmt.toString(depth)
-                                                : getTabs(depth) + "{\n" + elsestmt.toString(depth + 1) + "\n"
-                                                        + getTabs(depth) + "}")
-                                : "");
             case 10:
                 String list = "";
                 for (Expr e : args) {

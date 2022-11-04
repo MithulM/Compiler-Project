@@ -1,5 +1,4 @@
 public class WhileStmt extends AbstractStmt {
-
     Expr exp;
     Stmts sts;
 
@@ -11,6 +10,6 @@ public class WhileStmt extends AbstractStmt {
 
     @Override
     public String toString(int depth) {
-        return getTabs(depth) + "while (" + exp.toString() + ") " + sts.toString(depth+1);
+        return getTabs(depth) + "while (" + exp.toString() + ") " + sts.toString(depth + 1);
     }
 }
