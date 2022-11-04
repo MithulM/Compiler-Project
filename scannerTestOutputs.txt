@@ -1,0 +1,82 @@
+\*_____ ./Phase1_expressions.txt _____*\
+Program {
+	statment: (	x = x;)
+	statment: (	x = x();)
+	statment: (	x = x(x, x);)
+	statment: (	x = 1;)
+	statment: (	x = 'a';)
+	statment: (	x = "a";)
+	statment: (	x = 1.1;)
+	statment: (	x = true;)
+	statment: (	x = false;)
+	statment: (	x = x;)
+	statment: (	x = (~ x);)
+	statment: (	x = (- x);)
+	statment: (	x = (+ x);)
+	statment: (	x = (int)x;)
+	statment: (	x = (x + x);)
+	statment: (	x = (x * x);)
+	statment: (	x = (x > x);)
+	statment: (	x = ( x ? x : x );)
+}
+\*_____ ./Phase1_order_of_ops.txt _____*\
+Program {
+	statment: (	x = (1 + (2 * 3));)
+	statment: (	x = ((1 * 2) / 3);)
+	statment: (	x = ((1 + 2) - 3);)
+	statment: (	x = ((1 + 2) * 3);)
+	statment: (	x = (1 * (+ 2));)
+	statment: (	x = (1 / (- 2));)
+	statment: (	x = (1 * (~ 2));)
+	statment: (	x = ((1 + 2) > 3);)
+	statment: (	x = ((((1 > 2) < 3) >= 4) <= 5);)
+	statment: (	x = ((((1 <= 2) >= 3) < 4) > 5);)
+	statment: (	x = (1 == (2 < 3));)
+	statment: (	x = ((1 == 2) <> 3);)
+	statment: (	x = (1 && (2 == 3));)
+	statment: (	x = (1 || (2 && 3));)
+	statment: (	x = ( (1 || 2) ? (3 || 4) : (5 || 6) );)
+}
+\*_____ ./Phase1_statements.txt _____*\
+Program {
+	statment: (	if (x)
+		statment: (		x = 0;)
+)
+	statment: (	if (x)
+		statment: (		x = 0;)
+
+	else
+	{
+		statment: (		x = 0;)
+
+	})
+	statment: (	while (x)
+{		statment: (		x = 0;)
+}
+)
+	statment: (	x = 0;)
+	statment: (	read(x);)
+	statment: (	read(x, x);)
+	statment: (	print(x);)
+	statment: (	print((x + 1), x);)
+	statment: (	printline(x);)
+	statment: (	printline();)
+	statment: (	x();)
+	statment: (	x(x);)
+	statment: (	x(x, x);)
+	statment: (	return;)
+	statment: (	return x;)
+	statment: (	x++;)
+	statment: (	x--;)
+	statment: (	{
+		statment: (		x = 1;)
+
+	})
+	statment: (	{
+		statment: (		x = 1;)
+
+	})
+	statment: (	{
+
+	})
+}

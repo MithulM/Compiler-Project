@@ -1,0 +1,168 @@
+/*
+Name: Mithul Manivannan
+Date: 10/2/22
+Section: CS 4386.001
+*/
+import java_cup.runtime.*;
+import java.util.*;
+
+terminal String CLASS;
+terminal String ID;
+terminal QUESTION;
+terminal AND;
+terminal OR;
+terminal TRUE;
+terminal FALSE;
+terminal READ;
+terminal PRINT;
+terminal PRINTLN;
+terminal INC;
+terminal DEC;
+terminal NOT;
+terminal MULTI;
+terminal DIV;
+terminal PLUS;
+terminal MINUS;
+terminal EQ;
+terminal LT;
+terminal GT;
+terminal LTE;
+terminal GTE;
+terminal NE;
+terminal IF;
+terminal ELSE;
+terminal WHILE;
+terminal RETURN;
+terminal SEMI;
+terminal COMMA;
+terminal LPAREN;
+terminal RPAREN;
+terminal LCURLY;
+terminal RCURLY;
+terminal LSQR;
+terminal RSQR;
+terminal ASSIGN;
+terminal COLON;
+terminal FINAL;
+terminal CHAR;
+terminal INT;
+terminal FLOAT;
+terminal VOID;
+terminal BOOL;
+terminal String CHARLIT;
+terminal String STRLIT;
+terminal String INTLIT;
+terminal String FLOATLIT;
+
+// NON TERMINALS //
+
+non terminal Program program;
+non terminal Stmts stmts;
+non terminal Stmt stmt;
+non terminal Stmt ifEnd;
+non terminal Name name;
+non terminal ArrayList<Expr> args;
+non terminal ArrayList<Name> readlist;
+non terminal ArrayList<Expr> printlist;
+non terminal ArrayList<Expr> printlinelist;
+non terminal Expr expr;
+non terminal Boolean optionalsemi;
+non terminal String type;
+
+// PRECEDENCE //
+
+terminal UPLUS, UMINUS;
+
+// ASSIGN
+precedence left ASSIGN;
+
+// TERNARY
+precedence left QUESTION;
+
+// EQUALITY
+precedence left OR;
+precedence left AND;
+
+// RELATION
+precedence left NE, EQ;
+precedence left GT, GTE, LT, LTE;
+
+// MATH
+precedence left PLUS, MINUS;
+precedence left MULTI, DIV;
+
+// UNARY
+precedence left NOT, UPLUS, UMINUS;
+
+program ::=          stmts:s                                                     {: RESULT = new Program(s); :};
+
+optionalsemi ::=     SEMI                                                        {: RESULT = true; :}
+                   |                                                             {: RESULT = false; :};
+
+type ::=             INT                                                         {: RESULT = "int"; :}
+                   | FLOAT                                                       {: RESULT = "float"; :}
+                   | BOOL                                                        {: RESULT = "bool"; :}
+                   | CHAR                                                        {: RESULT = "char"; :};
+
+stmts ::=           stmt:st stmts:sts                                            {:sts.add(st); RESULT = sts;:}
+                  |                                                              {: RESULT = new Stmts(); :};
+
+stmt ::=            IF LPAREN expr:e RPAREN LCURLY stmts:s RCURLY ifEnd:el       {: RESULT = new Stmt(e, s, el); :}
+                  | WHILE LPAREN expr:e RPAREN LCURLY stmts:sts RCURLY           {: RESULT = new Stmt(e, sts); :}
+                  | name:n ASSIGN expr:e SEMI                                    {: RESULT = new Stmt(n, e); :}
+                  | READ LPAREN readlist:rl RPAREN SEMI                          {: RESULT = new Stmt("read", rl); :}
+                  | PRINT LPAREN printlist:pl RPAREN SEMI                        {: RESULT = new Stmt("print", pl); :}
+                  | PRINTLN LPAREN printlinelist:pll RPAREN SEMI                 {: RESULT = new Stmt("printline", pll); :}
+                  | ID:id LPAREN RPAREN SEMI                                     {: RESULT = new Stmt(id); :}
+                  | ID:id LPAREN args:args RPAREN SEMI                           {: RESULT = new Stmt(id, args, true); :}
+                  | RETURN SEMI                                                  {: RESULT = new Stmt(); :}
+                  | RETURN expr:e SEMI                                           {: RESULT = new Stmt(e); :}
+                  | name:n INC SEMI                                              {: RESULT = new Stmt(n, "++"); :}
+                  | name:n DEC SEMI                                              {: RESULT = new Stmt(n, "--"); :}
+                  | LCURLY stmts:sts RCURLY optionalsemi:opsemi                  {: RESULT = new Stmt(sts, opsemi); :};
+
+ifEnd ::=           ELSE stmt:st                                                 {: RESULT = st; :}
+                  |                                                              {: RESULT = null; :};
+
+name ::=            ID:id                                                        {: RESULT = new Name(id); :}
+                  | ID:id LSQR expr:e RSQR                                       {: RESULT = new Name(id, e); :};
+
+args ::=            expr:e COMMA args:args                                       {:args.add(0,e); RESULT = args;:}
+                  | expr:e                                                       {:ArrayList<Expr> temp = new ArrayList<Expr>(); temp.add(e); RESULT = temp;:};
+
+readlist ::=        name:n COMMA readlist:rl                                     {:rl.add(0,n); RESULT = rl;:}
+                  | name:n                                                       {:ArrayList<Name> temp = new ArrayList<Name>(); temp.add(n); RESULT = temp;:};
+
+printlist ::=       expr:e COMMA printlist:pl                                    {:pl.add(0,e); RESULT = pl;:}
+                  | expr:e                                                       {:ArrayList<Expr> temp = new ArrayList<Expr>(); temp.add(e); RESULT = temp;:};
+
+printlinelist ::=   printlist:pl                                                 {: RESULT = pl; :}
+                  |                                                              {: RESULT = new ArrayList<Expr>(); :};
+
+expr ::=            name:n                                                       {: RESULT = new Expr(n); :}
+                  | ID:id LPAREN RPAREN                                          {: RESULT = new Expr(id, true); :}
+                  | ID:id LPAREN args:args RPAREN                                {: RESULT = new Expr(id, args); :}
+                  | INTLIT:i                                                     {: RESULT = new Expr(Integer.parseInt(i)); :}
+                  | CHARLIT:c                                                    {: RESULT = new Expr(c, 'c'); :}
+                  | STRLIT:s                                                     {: RESULT = new Expr(s, 's'); :}
+                  | FLOATLIT:f                                                   {: RESULT = new Expr(Float.parseFloat(f)); :}
+                  | TRUE                                                         {: RESULT = new Expr(true); :}
+                  | FALSE                                                        {: RESULT = new Expr(false); :}
+                  | LPAREN expr:e RPAREN                                         {: RESULT = new Expr(e); :}
+                  | NOT expr:e                                                   {: RESULT = new Expr(e, "~"); :}
+                  | MINUS expr:e                                                 {: RESULT = new Expr(e, "-"); :} %prec UMINUS
+                  | PLUS expr:e                                                  {: RESULT = new Expr(e, "+"); :} %prec UPLUS
+                  | LPAREN type:t RPAREN expr:e                                  {: RESULT = new Expr(t, e); :}
+                  | expr:e1 PLUS expr:e2                                         {: RESULT = new Expr(e1, new BinaryOp("+"), e2); :}
+                  | expr:e1 MINUS expr:e2                                        {: RESULT = new Expr(e1, new BinaryOp("-"), e2); :}
+                  | expr:e1 MULTI expr:e2                                        {: RESULT = new Expr(e1, new BinaryOp("*"), e2); :}
+                  | expr:e1 DIV expr:e2                                          {: RESULT = new Expr(e1, new BinaryOp("/"), e2); :}
+                  | expr:e1 GT expr:e2                                           {: RESULT = new Expr(e1, new BinaryOp(">"), e2); :}
+                  | expr:e1 LT expr:e2                                           {: RESULT = new Expr(e1, new BinaryOp("<"), e2); :}
+                  | expr:e1 GTE expr:e2                                          {: RESULT = new Expr(e1, new BinaryOp(">="), e2); :}
+                  | expr:e1 LTE expr:e2                                          {: RESULT = new Expr(e1, new BinaryOp("<="), e2); :}
+                  | expr:e1 EQ expr:e2                                           {: RESULT = new Expr(e1, new BinaryOp("=="), e2); :}
+                  | expr:e1 NE expr:e2                                           {: RESULT = new Expr(e1, new BinaryOp("<>"), e2); :}
+                  | expr:e1 OR expr:e2                                           {: RESULT = new Expr(e1, new BinaryOp("||"), e2); :}
+                  | expr:e1 AND expr:e2                                          {: RESULT = new Expr(e1, new BinaryOp("&&"), e2); :}
+                  | LPAREN expr:e1 QUESTION expr:e2 COLON expr:e3 RPAREN         {: RESULT = new Expr(e1, e2, e3); :};
