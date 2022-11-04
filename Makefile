@@ -42,7 +42,7 @@ build: Lexer.java parser.java $(FILE:java=class)
 dump: Lexer.java parserD.java $(FILE:java=class)
 
 clean:
-	rm -f *.class *.bak Lexer.java parser.java sym.java *.txt
+	rm -f *.class *.bak Lexer.java parser.java sym.java scannerTestOutputs.txt
 
 Lexer.java: tokens.jflex
 	$(JFLEX) tokens.jflex
