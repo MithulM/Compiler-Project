@@ -689,7 +689,7 @@ class CUP$parser$actions {
 		int opsemileft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int opsemiright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Boolean opsemi = (Boolean)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 RESULT = new Stmt(sts, opsemi); 
+		 RESULT = new ScopeStmt(sts); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("stmt",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

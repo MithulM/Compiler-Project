@@ -119,7 +119,7 @@ stmt ::=            IF LPAREN expr:e RPAREN LCURLY stmts:s RCURLY ifEnd:el      
                   | RETURN expr:e SEMI                                           {: RESULT = new ReturnStmt(e); :}
                   | name:n INC SEMI                                              {: RESULT = new UnaryStmt(n, "++"); :}
                   | name:n DEC SEMI                                              {: RESULT = new UnaryStmt(n, "--"); :}
-                  | LCURLY stmts:sts RCURLY optionalsemi:opsemi                  {: RESULT = new Stmt(sts, opsemi); :};
+                  | LCURLY stmts:sts RCURLY optionalsemi:opsemi                  {: RESULT = new ScopeStmt(sts); :};
 //                  | SEMI                                                         {: RESULT = null :};
 
 ifEnd ::=           ELSE stmt:st                                                 {: RESULT = st; :}
