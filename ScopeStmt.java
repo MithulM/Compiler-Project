@@ -1,4 +1,4 @@
-public class ScopeStmt extends AbstractStmt {
+public class ScopeStmt extends Stmt {
     Stmts sts;
 
     public ScopeStmt(Stmts sts) {

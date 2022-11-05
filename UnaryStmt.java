@@ -1,4 +1,4 @@
-public class UnaryStmt extends AbstractStmt{
+public class UnaryStmt extends Stmt{
     Name name;
     String op;
 

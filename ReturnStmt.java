@@ -1,4 +1,4 @@
-public class ReturnStmt extends AbstractStmt{
+public class ReturnStmt extends Stmt{
 
     Expr exp;
 

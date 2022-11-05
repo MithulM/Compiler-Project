@@ -1,9 +1,9 @@
-public class IfStmt extends AbstractStmt {
-    public Expr exp;
+public class IfStmt extends Stmt {
+    Expr exp;
     Stmts sts;
-    AbstractStmt elst;
+    Stmt elst;
 
-    public IfStmt(Expr exp, Stmts sts, AbstractStmt elst) {
+    public IfStmt(Expr exp, Stmts sts, Stmt elst) {
         this.exp = exp;
         this.sts = sts;
         this.elst = elst;

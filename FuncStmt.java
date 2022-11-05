@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class FuncStmt extends AbstractStmt {
+public class FuncStmt extends Stmt {
     String name;
     ArrayList args;
 
@@ -12,7 +12,7 @@ public class FuncStmt extends AbstractStmt {
     @Override
     public String toString(int depth) {
         String list = "";
-        for (Token e : (ArrayList<Token>)args) {
+        for (Token e : (ArrayList<Token>) args) {
             list += e.toString(depth + 1) + ", ";
         }
         list = list.substring(0, list.length() > 0 ? list.length() - 2 : 0);

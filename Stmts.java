@@ -2,19 +2,19 @@ import java.util.ArrayList;
 
 public class Stmts extends Token{
 
-    ArrayList<AbstractStmt> sts;
+    ArrayList<Stmt> sts;
 
     public Stmts() {
         sts = new ArrayList<>();
     }
 
-    public void add(AbstractStmt st) {
+    public void add(Stmt st) {
         sts.add(0, st);
     }
 
     public String toString(int depth) {
         String res = "";
-        for (AbstractStmt st: sts) {
+        for (Stmt st: sts) {
             res += st.toString(depth) + "\n";
         }
         return res;

@@ -58,8 +58,8 @@ terminal String FLOATLIT;
 
 non terminal Program program;
 non terminal Stmts stmts;
-non terminal AbstractStmt stmt;
-non terminal AbstractStmt ifEnd;
+non terminal Stmt stmt;
+non terminal Stmt ifEnd;
 non terminal Name name;
 non terminal ArrayList<Expr> args;
 non terminal ArrayList<Token> readlist;

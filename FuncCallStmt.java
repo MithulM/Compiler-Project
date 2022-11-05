@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class FuncCallStmt extends AbstractStmt {
+public class FuncCallStmt extends Stmt {
     String id;
     ArrayList<Expr> args;
 

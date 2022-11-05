@@ -1,4 +1,4 @@
-public class NameStmt extends AbstractStmt{
+public class NameStmt extends Stmt{
     Name name;
     Expr exp;
 
