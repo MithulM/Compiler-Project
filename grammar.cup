@@ -117,8 +117,8 @@ stmt ::=            IF LPAREN expr:e RPAREN LCURLY stmts:s RCURLY ifEnd:el      
                   | ID:id LPAREN args:args RPAREN SEMI                           {: RESULT = new FuncCallStmt(id, args); :}
                   | RETURN SEMI                                                  {: RESULT = new ReturnStmt(); :}
                   | RETURN expr:e SEMI                                           {: RESULT = new ReturnStmt(e); :}
-                  | name:n INC SEMI                                              {: RESULT = new Stmt(n, "++"); :}
-                  | name:n DEC SEMI                                              {: RESULT = new Stmt(n, "--"); :}
+                  | name:n INC SEMI                                              {: RESULT = new UnaryStmt(n, "++"); :}
+                  | name:n DEC SEMI                                              {: RESULT = new UnaryStmt(n, "--"); :}
                   | LCURLY stmts:sts RCURLY optionalsemi:opsemi                  {: RESULT = new Stmt(sts, opsemi); :};
 //                  | SEMI                                                         {: RESULT = null :};
 

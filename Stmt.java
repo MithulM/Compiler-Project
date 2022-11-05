@@ -79,8 +79,6 @@ class Stmt extends AbstractStmt {
                 }
                 list = list.substring(0, list.length() > 0 ? list.length() - 2 : 0);
                 return getTabs(depth) + id + "(" + list + ");";
-            case 3:
-                return getTabs(depth) + name.toString() + unaryOp + ";";
             default:
                 return "";
         }
