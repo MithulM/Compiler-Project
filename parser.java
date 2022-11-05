@@ -577,8 +577,8 @@ class CUP$parser$actions {
               AbstractStmt RESULT =null;
 		int rlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int rlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		ArrayList<Name> rl = (ArrayList<Name>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
-		 RESULT = new Stmt("read", rl); 
+		ArrayList<Token> rl = (ArrayList<Token>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		 RESULT = new FuncStmt("read", rl); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("stmt",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -589,8 +589,8 @@ class CUP$parser$actions {
               AbstractStmt RESULT =null;
 		int plleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int plright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		ArrayList<Expr> pl = (ArrayList<Expr>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
-		 RESULT = new Stmt("print", pl); 
+		ArrayList<Token> pl = (ArrayList<Token>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		 RESULT = new FuncStmt("print", pl); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("stmt",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -601,8 +601,8 @@ class CUP$parser$actions {
               AbstractStmt RESULT =null;
 		int pllleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int pllright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		ArrayList<Expr> pll = (ArrayList<Expr>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
-		 RESULT = new Stmt("printline", pll); 
+		ArrayList<Token> pll = (ArrayList<Token>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		 RESULT = new FuncStmt("printline", pll); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("stmt",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -764,7 +764,7 @@ class CUP$parser$actions {
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Expr e = (Expr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		ArrayList<Expr> temp = new ArrayList<Expr>(); temp.add(e); RESULT = temp;
+		ArrayList<Expr> temp = new ArrayList<>(); temp.add(e); RESULT = temp;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("args",5, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -772,13 +772,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 29: // readlist ::= name COMMA readlist 
             {
-              ArrayList<Name> RESULT =null;
+              ArrayList<Token> RESULT =null;
 		int nleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Name n = (Name)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int rlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int rlright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		ArrayList<Name> rl = (ArrayList<Name>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		ArrayList<Token> rl = (ArrayList<Token>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		rl.add(0,n); RESULT = rl;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("readlist",6, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -787,11 +787,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 30: // readlist ::= name 
             {
-              ArrayList<Name> RESULT =null;
+              ArrayList<Token> RESULT =null;
 		int nleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Name n = (Name)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		ArrayList<Name> temp = new ArrayList<Name>(); temp.add(n); RESULT = temp;
+		ArrayList<Token> temp = new ArrayList<>(); temp.add(n); RESULT = temp;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("readlist",6, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -799,13 +799,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 31: // printlist ::= expr COMMA printlist 
             {
-              ArrayList<Expr> RESULT =null;
+              ArrayList<Token> RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Expr e = (Expr)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int plleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int plright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		ArrayList<Expr> pl = (ArrayList<Expr>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		ArrayList<Token> pl = (ArrayList<Token>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		pl.add(0,e); RESULT = pl;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("printlist",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -814,11 +814,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 32: // printlist ::= expr 
             {
-              ArrayList<Expr> RESULT =null;
+              ArrayList<Token> RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Expr e = (Expr)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		ArrayList<Expr> temp = new ArrayList<Expr>(); temp.add(e); RESULT = temp;
+		ArrayList<Token> temp = new ArrayList<>(); temp.add(e); RESULT = temp;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("printlist",7, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -826,10 +826,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 33: // printlinelist ::= printlist 
             {
-              ArrayList<Expr> RESULT =null;
+              ArrayList<Token> RESULT =null;
 		int plleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int plright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		ArrayList<Expr> pl = (ArrayList<Expr>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		ArrayList<Token> pl = (ArrayList<Token>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = pl; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("printlinelist",8, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -838,8 +838,8 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 34: // printlinelist ::= 
             {
-              ArrayList<Expr> RESULT =null;
-		 RESULT = new ArrayList<Expr>(); 
+              ArrayList<Token> RESULT =null;
+		 RESULT = new ArrayList<Token>(); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("printlinelist",8, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

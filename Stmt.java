@@ -47,38 +47,6 @@ class Stmt extends AbstractStmt {
 
     public String toString(int depth) {
         switch (this.production) {
-            case 10:
-                String list = "";
-                for (Expr e : args) {
-                    list += e.toString() + ", ";
-                }
-                list = list.substring(0, list.length() > 0 ? list.length() - 2 : 0);
-                return getTabs(depth) + id + "(" + list + ");";
-            case 9:
-                String result = "";
-                result += stmts.toString(depth + 1) + "\n";
-                return getTabs(depth) + "{\n" + result + getTabs(depth) + "}";
-            case 6:
-                list = "";
-                for (Name n : (ArrayList<Name>) funclist) {
-                    list += n.toString() + ", ";
-                }
-                list = list.substring(0, list.length() > 0 ? list.length() - 2 : 0);
-                return getTabs(depth) + id + "(" + list + ");";
-            case 5:
-                list = "";
-                for (Expr e : (ArrayList<Expr>) funclist) {
-                    list += e.toString() + ", ";
-                }
-                list = list.substring(0, list.length() > 0 ? list.length() - 2 : 0);
-                return getTabs(depth) + id + "(" + list + ");";
-            case 4:
-                list = "";
-                for (Expr e : (ArrayList<Expr>) funclist) {
-                    list += e.toString() + ", ";
-                }
-                list = list.substring(0, list.length() > 0 ? list.length() - 2 : 0);
-                return getTabs(depth) + id + "(" + list + ");";
             default:
                 return "";
         }

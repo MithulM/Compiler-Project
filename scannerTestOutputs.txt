@@ -56,11 +56,11 @@ Program {
 		x = 0;
 	}
 	x = 0;
-	read(x);
-	read(x, x);
-	print(x);
-	print((x + 1), x);
-	printline(x);
+	read();
+	read(, );
+	print();
+	print(, );
+	printline();
 	printline();
 	x();
 	x(x);

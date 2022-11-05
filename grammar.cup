@@ -62,9 +62,9 @@ non terminal AbstractStmt stmt;
 non terminal AbstractStmt ifEnd;
 non terminal Name name;
 non terminal ArrayList<Expr> args;
-non terminal ArrayList<Name> readlist;
-non terminal ArrayList<Expr> printlist;
-non terminal ArrayList<Expr> printlinelist;
+non terminal ArrayList<Token> readlist;
+non terminal ArrayList<Token> printlist;
+non terminal ArrayList<Token> printlinelist;
 non terminal Expr expr;
 non terminal Boolean optionalsemi;
 non terminal String type;
@@ -110,9 +110,9 @@ stmts ::=           stmt:st stmts:sts                                           
 stmt ::=            IF LPAREN expr:e RPAREN LCURLY stmts:s RCURLY ifEnd:el       {: RESULT = new IfStmt(e, s, el); :}
                   | WHILE LPAREN expr:e RPAREN LCURLY stmts:sts RCURLY           {: RESULT = new WhileStmt(e, sts); :}
                   | name:n ASSIGN expr:e SEMI                                    {: RESULT = new NameStmt(n, e); :}
-                  | READ LPAREN readlist:rl RPAREN SEMI                          {: RESULT = new Stmt("read", rl); :}
-                  | PRINT LPAREN printlist:pl RPAREN SEMI                        {: RESULT = new Stmt("print", pl); :}
-                  | PRINTLN LPAREN printlinelist:pll RPAREN SEMI                 {: RESULT = new Stmt("printline", pll); :}
+                  | READ LPAREN readlist:rl RPAREN SEMI                          {: RESULT = new FuncStmt("read", rl); :}
+                  | PRINT LPAREN printlist:pl RPAREN SEMI                        {: RESULT = new FuncStmt("print", pl); :}
+                  | PRINTLN LPAREN printlinelist:pll RPAREN SEMI                 {: RESULT = new FuncStmt("printline", pll); :}
                   | ID:id LPAREN RPAREN SEMI                                     {: RESULT = new FuncCallStmt(id); :}
                   | ID:id LPAREN args:args RPAREN SEMI                           {: RESULT = new FuncCallStmt(id, args); :}
                   | RETURN SEMI                                                  {: RESULT = new ReturnStmt(); :}
@@ -129,16 +129,16 @@ name ::=            ID:id                                                       
                   | ID:id LSQR expr:e RSQR                                       {: RESULT = new Name(id, e); :};
 
 args ::=            expr:e COMMA args:args                                       {:args.add(0,e); RESULT = args;:}
-                  | expr:e                                                       {:ArrayList<Expr> temp = new ArrayList<Expr>(); temp.add(e); RESULT = temp;:};
+                  | expr:e                                                       {:ArrayList<Expr> temp = new ArrayList<>(); temp.add(e); RESULT = temp;:};
 
 readlist ::=        name:n COMMA readlist:rl                                     {:rl.add(0,n); RESULT = rl;:}
-                  | name:n                                                       {:ArrayList<Name> temp = new ArrayList<Name>(); temp.add(n); RESULT = temp;:};
+                  | name:n                                                       {:ArrayList<Token> temp = new ArrayList<>(); temp.add(n); RESULT = temp;:};
 
 printlist ::=       expr:e COMMA printlist:pl                                    {:pl.add(0,e); RESULT = pl;:}
-                  | expr:e                                                       {:ArrayList<Expr> temp = new ArrayList<Expr>(); temp.add(e); RESULT = temp;:};
+                  | expr:e                                                       {:ArrayList<Token> temp = new ArrayList<>(); temp.add(e); RESULT = temp;:};
 
 printlinelist ::=   printlist:pl                                                 {: RESULT = pl; :}
-                  |                                                              {: RESULT = new ArrayList<Expr>(); :};
+                  |                                                              {: RESULT = new ArrayList<Token>(); :};
 
 expr ::=            name:n                                                       {: RESULT = new Expr(n); :}
                   | ID:id LPAREN RPAREN                                          {: RESULT = new Expr(id, true); :}
