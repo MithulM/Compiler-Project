@@ -8,6 +8,6 @@ abstract class Token {
     }
 
     public String toString(int t) {
-        return "Dones";
+        return "Token toString missing override";
     }
 }

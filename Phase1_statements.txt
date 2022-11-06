@@ -5,7 +5,7 @@ x = 0;
 read ( x );
 read (x);
 print(x);
-print(x+1,~x()+4);
+print(x+1,(int)4+ +x());
 printline(x);
 printline();
 x();

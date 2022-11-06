@@ -14,7 +14,7 @@ default: all
 
 FILE=	Lexer.java parser.java sym.java \
 	LexerRules.java ScannerTest.java \
-	Program.java AbstractExpr.java \
+	Program.java Expr.java \
 	Name.java BinaryOp.java Token.java
 
 all: scannerTests

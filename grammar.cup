@@ -143,27 +143,27 @@ printlinelist ::=   printlist:pl                                                
 expr ::=            name:n                                                       {: RESULT = new NameExpr(n); :}
                   | ID:id LPAREN RPAREN                                          {: RESULT = new FuncCallExpr(id); :}
                   | ID:id LPAREN args:args RPAREN                                {: RESULT = new FuncCallExpr(id, args); :}
-                  | INTLIT:i                                                     {: RESULT = new AbstractExpr(Integer.parseInt(i)); :}
-                  | CHARLIT:c                                                    {: RESULT = new AbstractExpr(c, 'c'); :}
-                  | STRLIT:s                                                     {: RESULT = new AbstractExpr(s, 's'); :}
-                  | FLOATLIT:f                                                   {: RESULT = new AbstractExpr(Float.parseFloat(f)); :}
-                  | TRUE                                                         {: RESULT = new AbstractExpr(true); :}
-                  | FALSE                                                        {: RESULT = new AbstractExpr(false); :}
-                  | LPAREN expr:e RPAREN                                         {: RESULT = new AbstractExpr(e); :}
-                  | NOT expr:e                                                   {: RESULT = new AbstractExpr(e, "~"); :}
-                  | MINUS expr:e                                                 {: RESULT = new AbstractExpr(e, "-"); :} %prec UMINUS
-                  | PLUS expr:e                                                  {: RESULT = new AbstractExpr(e, "+"); :} %prec UPLUS
-                  | LPAREN type:t RPAREN expr:e                                  {: RESULT = new AbstractExpr(t, e); :}
-                  | expr:e1 PLUS expr:e2                                         {: RESULT = new AbstractExpr(e1, new BinaryOp("+"), e2); :}
-                  | expr:e1 MINUS expr:e2                                        {: RESULT = new AbstractExpr(e1, new BinaryOp("-"), e2); :}
-                  | expr:e1 MULTI expr:e2                                        {: RESULT = new AbstractExpr(e1, new BinaryOp("*"), e2); :}
-                  | expr:e1 DIV expr:e2                                          {: RESULT = new AbstractExpr(e1, new BinaryOp("/"), e2); :}
-                  | expr:e1 GT expr:e2                                           {: RESULT = new AbstractExpr(e1, new BinaryOp(">"), e2); :}
-                  | expr:e1 LT expr:e2                                           {: RESULT = new AbstractExpr(e1, new BinaryOp("<"), e2); :}
-                  | expr:e1 GTE expr:e2                                          {: RESULT = new AbstractExpr(e1, new BinaryOp(">="), e2); :}
-                  | expr:e1 LTE expr:e2                                          {: RESULT = new AbstractExpr(e1, new BinaryOp("<="), e2); :}
-                  | expr:e1 EQ expr:e2                                           {: RESULT = new AbstractExpr(e1, new BinaryOp("=="), e2); :}
-                  | expr:e1 NE expr:e2                                           {: RESULT = new AbstractExpr(e1, new BinaryOp("<>"), e2); :}
-                  | expr:e1 OR expr:e2                                           {: RESULT = new AbstractExpr(e1, new BinaryOp("||"), e2); :}
-                  | expr:e1 AND expr:e2                                          {: RESULT = new AbstractExpr(e1, new BinaryOp("&&"), e2); :}
-                  | LPAREN expr:e1 QUESTION expr:e2 COLON expr:e3 RPAREN         {: RESULT = new AbstractExpr(e1, e2, e3); :};
+                  | INTLIT:i                                                     {: RESULT = new TypeExpr(i, 'i'); :}
+                  | CHARLIT:c                                                    {: RESULT = new TypeExpr(c, 'c'); :}
+                  | STRLIT:s                                                     {: RESULT = new TypeExpr(s, 's'); :}
+                  | FLOATLIT:f                                                   {: RESULT = new TypeExpr(f, 'f'); :}
+                  | TRUE:t                                                       {: RESULT = new TypeExpr("true", 'b'); :}
+                  | FALSE:f                                                      {: RESULT = new TypeExpr("false", 'b'); :}
+                  | LPAREN expr:e RPAREN                                         {: RESULT = new SimplifiedExpr(e); :}
+                  | NOT expr:e                                                   {: RESULT = new UnaryOpExpr(e, "~"); :}
+                  | MINUS expr:e                                                 {: RESULT = new UnaryOpExpr(e, "-"); :} %prec UMINUS
+                  | PLUS expr:e                                                  {: RESULT = new UnaryOpExpr(e, "+"); :} %prec UPLUS
+                  | LPAREN type:t RPAREN expr:e                                  {: RESULT = new CastExpr(t, e); :}
+                  | expr:e1 PLUS expr:e2                                         {: RESULT = new BinaryOpExpr(e1, new BinaryOp("+"), e2); :}
+                  | expr:e1 MINUS expr:e2                                        {: RESULT = new BinaryOpExpr(e1, new BinaryOp("-"), e2); :}
+                  | expr:e1 MULTI expr:e2                                        {: RESULT = new BinaryOpExpr(e1, new BinaryOp("*"), e2); :}
+                  | expr:e1 DIV expr:e2                                          {: RESULT = new BinaryOpExpr(e1, new BinaryOp("/"), e2); :}
+                  | expr:e1 GT expr:e2                                           {: RESULT = new BinaryOpExpr(e1, new BinaryOp(">"), e2); :}
+                  | expr:e1 LT expr:e2                                           {: RESULT = new BinaryOpExpr(e1, new BinaryOp("<"), e2); :}
+                  | expr:e1 GTE expr:e2                                          {: RESULT = new BinaryOpExpr(e1, new BinaryOp(">="), e2); :}
+                  | expr:e1 LTE expr:e2                                          {: RESULT = new BinaryOpExpr(e1, new BinaryOp("<="), e2); :}
+                  | expr:e1 EQ expr:e2                                           {: RESULT = new BinaryOpExpr(e1, new BinaryOp("=="), e2); :}
+                  | expr:e1 NE expr:e2                                           {: RESULT = new BinaryOpExpr(e1, new BinaryOp("<>"), e2); :}
+                  | expr:e1 OR expr:e2                                           {: RESULT = new BinaryOpExpr(e1, new BinaryOp("||"), e2); :}
+                  | expr:e1 AND expr:e2                                          {: RESULT = new BinaryOpExpr(e1, new BinaryOp("&&"), e2); :}
+                  | LPAREN expr:e1 QUESTION expr:e2 COLON expr:e3 RPAREN         {: RESULT = new TernaryOpExpr(e1, e2, e3); :};

@@ -13,11 +13,11 @@ Program {
 	x = (~x);
 	x = (-x);
 	x = (+x);
-	x = (int)x;
+	x = ((int) (x));
 	x = (x + x);
 	x = (x * x);
 	x = (x > x);
-	x = ( x ? x : x );
+	x = ( x  ?  x  :  x );
 }
 Output of file ./Phase1_order_of_ops.txt
 Program {
@@ -35,7 +35,7 @@ Program {
 	x = ((1 == 2) <> 3);
 	x = (1 && (2 == 3));
 	x = (1 || (2 && 3));
-	x = ( (1 || 2) ? (3 || 4) : (5 || 6) );
+	x = ( (1 || 2)  ?  (3 || 4)  :  (5 || 6) );
 }
 Output of file ./Phase1_statements.txt
 Program {
@@ -59,7 +59,7 @@ Program {
 	read(x);
 	read(x);
 	print(x);
-	print((x + 1), ((~x()) + 4));
+	print((x + 1), ((int) ((4 + (+x())))));
 	printline(x);
 	printline();
 	x();
