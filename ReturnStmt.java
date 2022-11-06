@@ -1,5 +1,4 @@
-public class ReturnStmt extends Stmt{
-
+public class ReturnStmt extends Stmt {
     Expr exp;
 
     public ReturnStmt(Expr exp) {
