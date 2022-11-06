@@ -13,9 +13,9 @@ public class FuncStmt extends Stmt {
     public String toString(int depth) {
         String list = "";
         for (Token e : (ArrayList<Token>) args) {
-            list += e.toString(depth + 1) + ", ";
+            list += e.toString() + ", ";
         }
-        list = list.substring(0, list.length() > 0 ? list.length() - 2 : 0);
+        list = list.substring(0, Math.max(list.length() - 2, 0));
         return getTabs(depth) + name + "(" + list + ");";
     }
 }

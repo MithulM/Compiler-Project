@@ -91,7 +91,7 @@ class AbstractExpr extends Expr {
             case 5:
                 return expr[0].toString();
             case 6:
-                return "(" + unaryOp + " " + expr[0].toString() + ")";
+                return "(" + unaryOp + expr[0].toString() + ")";
             case 7:
                 return "(" + castType + ")" + expr[0].toString();
             case 8:

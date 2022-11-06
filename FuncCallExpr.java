@@ -21,6 +21,6 @@ public class FuncCallExpr extends Expr {
             list += e.toString() + ", ";
         }
         list = list.substring(0, list.length() > 0 ? list.length() - 2 : 0);
-        return id + "(" + list + ");";
+        return id + "(" + list + ")";
     }
 }
