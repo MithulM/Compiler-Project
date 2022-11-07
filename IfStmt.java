@@ -1,25 +1,24 @@
 public class IfStmt extends Stmt {
     Expr exp;
-    Stmts sts;
-    Stmt elst;
+    Stmts ifSts;
+    Stmts elseSts;
 
-    public IfStmt(Expr exp, Stmts sts, Stmt elst) {
+    public IfStmt(Expr exp, Stmts ifSts, Stmts elseSts) {
         this.exp = exp;
-        this.sts = sts;
-        this.elst = elst;
-        production = 11;
+        this.ifSts = ifSts;
+        this.elseSts = elseSts;
     }
 
     @Override
     public String toString(int depth) {
-        return getTabs(depth) +
-                "if (" + exp.toString() + ")\n" +
-                sts.toString(depth + 1) +
-                (elst != null
-                        ? "\n" + getTabs(depth) + "else\n"
-                                + (elst.production == 9 ? elst.toString(depth)
-                                        : getTabs(depth) + "{\n" + elst.toString(depth + 1) + "\n"
-                                                + getTabs(depth) + "}")
-                        : "");
+        String res = getTabs(depth) + "if (" + exp.toString() + ") {\n" +
+                ifSts.toString(depth + 1) +
+                getTabs(depth) + "}";
+        if (elseSts != null) {
+            res += " else {\n" +
+                    elseSts.toString(depth + 1) +
+                    getTabs(depth) + "}";
+        }
+        return res;
     }
 }

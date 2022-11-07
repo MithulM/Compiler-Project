@@ -1,9 +1,8 @@
 public class NameExpr extends Expr {
     Name name;
 
-    public NameExpr(Name n) { // PROD 1 - name
+    public NameExpr(Name n) {
         name = n;
-        production = 3;
     }
 
     @Override

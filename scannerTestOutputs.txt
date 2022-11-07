@@ -1,5 +1,5 @@
 Output of file ./Phase1_expressions.txt
-Program {
+Main program {
 	x = x;
 	x = x();
 	x = x(x, x);
@@ -20,7 +20,7 @@ Program {
 	x = ( x  ?  x  :  x );
 }
 Output of file ./Phase1_order_of_ops.txt
-Program {
+Main program {
 	x = (1 + (2 * 3));
 	x = ((1 * 2) / 3);
 	x = ((1 + 2) - 3);
@@ -38,19 +38,14 @@ Program {
 	x = ( (1 || 2)  ?  (3 || 4)  :  (5 || 6) );
 }
 Output of file ./Phase1_statements.txt
-Program {
-	if (x)
+Main program {
+	if (x) {
 		x = 0;
-
-	if (x())
+	}
+	if (x()) {
 		x = 0;
-
-	else
-	{
-		{
-			x = 0;
-
-		}
+	} else {
+		x = 0;
 	}
 	while (x(4, (-t))) {
 		x = 0;

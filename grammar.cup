@@ -59,7 +59,7 @@ terminal String FLOATLIT;
 non terminal Program program;
 non terminal Stmts stmts;
 non terminal Stmt stmt;
-non terminal Stmt ifEnd;
+non terminal Stmts ifEnd;
 non terminal Name name;
 non terminal ArrayList<Expr> args;
 non terminal ArrayList<Token> readlist;
@@ -120,9 +120,8 @@ stmt ::=            IF LPAREN expr:e RPAREN LCURLY stmts:s RCURLY ifEnd:el      
                   | name:n INC SEMI                                              {: RESULT = new UnaryStmt(n, "++"); :}
                   | name:n DEC SEMI                                              {: RESULT = new UnaryStmt(n, "--"); :}
                   | LCURLY stmts:sts RCURLY optionalsemi:opsemi                  {: RESULT = new ScopeStmt(sts); :};
-//                  | SEMI                                                         {: RESULT = null :};
 
-ifEnd ::=           ELSE stmt:st                                                 {: RESULT = st; :}
+ifEnd ::=           ELSE LCURLY stmts:sts RCURLY                                 {: RESULT = sts; :}
                   |                                                              {: RESULT = null; :};
 
 name ::=            ID:id                                                        {: RESULT = new Name(id); :}

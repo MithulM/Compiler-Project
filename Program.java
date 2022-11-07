@@ -7,6 +7,6 @@ class Program extends Token {
     }
 
     public String toString(int depth) {
-        return "Program {\n" + sts.toString(depth + 1) + "}\n";
+        return "Main program {\n" + sts.toString(depth + 1) + "}\n";
     }
 }

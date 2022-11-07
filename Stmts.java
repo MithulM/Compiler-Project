@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Stmts extends Token{
+public class Stmts extends Token {
 
     ArrayList<Stmt> sts;
 
@@ -14,7 +14,7 @@ public class Stmts extends Token{
 
     public String toString(int depth) {
         String res = "";
-        for (Stmt st: sts) {
+        for (Stmt st : sts) {
             res += st.toString(depth) + "\n";
         }
         return res;
