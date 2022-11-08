@@ -1,12 +1,13 @@
 class Program extends Token {
+  String className;
+  Memberdecls memberdecls;
 
-    Stmts sts;
+  public Program(String id, Memberdecls m) {
+    className = id;
+    memberdecls = m;
+  }
 
-    public Program(Stmts sts) {
-        this.sts = sts;
-    }
-
-    public String toString(int depth) {
-        return "Main program {\n" + sts.toString(depth + 1) + "}\n";
-    }
+  public String toString(int nest) {
+    return "class " + className + " {\n" + memberdecls.toString(nest + 1) + "}\n";
+  }
 }

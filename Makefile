@@ -10,7 +10,7 @@ default: all
 .SUFFIXES: $(SUFFIXES) .class .java
 
 .java.class:
-	$(JAVAC) -cp $(CP) $*.java
+	@$(JAVAC) -cp $(CP) $*.java
 
 FILE=	Lexer.java parser.java sym.java \
 	LexerRules.java ScannerTest.java \
@@ -32,15 +32,15 @@ build: Lexer.java parser.java $(FILE:java=class)
 dump: Lexer.java parserD.java $(FILE:java=class)
 
 clean:
-	rm -f *.class *.bak Lexer.java parser.java sym.java scannerTestOutputs.txt
+	@rm -f *.~ *.class *.bak Lexer.java parser.java sym.java scannerTestOutputs.txt
 
 Lexer.java: tokens.jflex
-	$(JFLEX) tokens.jflex
+	@$(JFLEX) tokens.jflex
 
 parser.java: grammar.cup
-	$(CUP) -interface < grammar.cup
+	@$(CUP) -interface < grammar.cup
 
 parserD.java: grammar.cup
-	$(CUP) -interface -dump < grammar.cup
+	@$(CUP) -interface -dump < grammar.cup
 
 

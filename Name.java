@@ -13,10 +13,6 @@ class Name extends Token {
     }
 
     public String toString() {
-        return id + (hasIndex() ? "[" + idx.toString() + "]" : "");
-    }
-
-    private boolean hasIndex() {
-        return idx != null;
+        return id + (idx != null ? "[" + idx.toString() + "]" : "");
     }
 }

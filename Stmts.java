@@ -12,10 +12,10 @@ public class Stmts extends Token {
         sts.add(0, st);
     }
 
-    public String toString(int depth) {
+    public String toString(int nest) {
         String res = "";
         for (Stmt st : sts) {
-            res += st.toString(depth) + "\n";
+            res += st.toString(nest) + "\n";
         }
         return res;
     }

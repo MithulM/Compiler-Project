@@ -10,14 +10,14 @@ public class IfStmt extends Stmt {
     }
 
     @Override
-    public String toString(int depth) {
-        String res = getTabs(depth) + "if (" + exp.toString() + ") {\n" +
-                ifSts.toString(depth + 1) +
-                getTabs(depth) + "}";
+    public String toString(int nest) {
+        String res = getTabs(nest) + "if (" + exp.toString() + ") {\n" +
+                ifSts.toString(nest + 1) +
+                getTabs(nest) + "}";
         if (elseSts != null) {
             res += " else {\n" +
-                    elseSts.toString(depth + 1) +
-                    getTabs(depth) + "}";
+                    elseSts.toString(nest + 1) +
+                    getTabs(nest) + "}";
         }
         return res;
     }

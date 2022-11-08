@@ -2,25 +2,21 @@ import java.util.ArrayList;
 
 public class FuncCallStmt extends Stmt {
     String id;
-    ArrayList<Expr> args;
+    Exprs args;
 
     public FuncCallStmt(String id) {
         this.id = id;
-        this.args = new ArrayList<>();
+        this.args = new Exprs();
     }
 
-    public FuncCallStmt(String id, ArrayList<Expr> ag) {
+    public FuncCallStmt(String id, Exprs ag) {
         this.id = id;
         args = ag;
     }
 
     @Override
-    public String toString(int depth) {
-        String list = "";
-        for (Expr e : args) {
-            list += e.toString() + ", ";
-        }
-        list = list.substring(0, list.length() > 0 ? list.length() - 2 : 0);
-        return getTabs(depth) + id + "(" + list + ");";
+    public String toString(int nest) {
+        String list = args.toString();
+        return getTabs(nest) + id + "(" + list + ");";
     }
 }

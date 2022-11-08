@@ -10,12 +10,12 @@ public class FuncStmt extends Stmt {
     }
 
     @Override
-    public String toString(int depth) {
+    public String toString(int nest) {
         String list = "";
         for (Token e : (ArrayList<Token>) args) {
             list += e.toString() + ", ";
         }
         list = list.substring(0, Math.max(list.length() - 2, 0));
-        return getTabs(depth) + name + "(" + list + ");";
+        return getTabs(nest) + name + "(" + list + ");";
     }
 }

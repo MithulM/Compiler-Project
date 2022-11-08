@@ -1,11 +1,12 @@
 if ( x ) { x = 0; }
 if ( x() ) { x = 0; } else { x = 0; }
+if ( x() ) { x = 0; if ( x ) { x = 0; }} else { x = 0; if ( x() ) { x = 0; } else { x = 0; }}
 while ( x(4, -t) ) { x = 0; }
 x = 0;
 read ( x );
 read (x);
 print(x);
-print(x+1,(int)4+ +x());
+print(x+1,(float)4+ +x());
 printline(x);
 printline();
 x();

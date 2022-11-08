@@ -10,7 +10,7 @@ public class ReturnStmt extends Stmt {
     }
 
     @Override
-    public String toString(int depth) {
-        return getTabs(depth) + "return" + ((exp != null) ? " " + exp.toString() : "") + ";";
+    public String toString(int nest) {
+        return getTabs(nest) + "return" + ((exp != null) ? " " + exp.toString() : "") + ";";
     }
 }

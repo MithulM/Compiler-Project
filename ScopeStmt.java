@@ -6,9 +6,7 @@ public class ScopeStmt extends Stmt {
     }
 
     @Override
-    public String toString(int depth) {
-        String result = "";
-        result += sts.toString(depth + 1) + "\n";
-        return getTabs(depth) + "{\n" + result + getTabs(depth) + "}";
+    public String toString(int nest) {
+        return getTabs(nest) + "{\n" + sts.toString(nest + 1) + getTabs(nest) + "}";
     }
 }

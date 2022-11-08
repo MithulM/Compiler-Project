@@ -8,8 +8,8 @@ public class WhileStmt extends Stmt {
     }
 
     @Override
-    public String toString(int depth) {
-        String tabs = getTabs(depth);
-        return tabs + "while (" + exp.toString() + ") {\n" + sts.toString(depth + 1) + tabs + "}";
+    public String toString(int nest) {
+        String tabs = getTabs(nest);
+        return tabs + "while (" + exp.toString() + ") {\n" + sts.toString(nest + 1) + tabs + "}";
     }
 }

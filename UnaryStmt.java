@@ -1,4 +1,4 @@
-public class UnaryStmt extends Stmt{
+public class UnaryStmt extends Stmt {
     Name name;
     String op;
 
@@ -8,7 +8,7 @@ public class UnaryStmt extends Stmt{
     }
 
     @Override
-    public String toString(int depth) {
-        return getTabs(depth) + name.toString() + op + ";";
+    public String toString(int nest) {
+        return getTabs(nest) + name.toString() + op + ";";
     }
 }

@@ -6,6 +6,7 @@
 /** CUP generated interface containing symbol constants. */
 public interface sym {
   /* terminals */
+  public static final int CAST = 51;
   public static final int STRLIT = 46;
   public static final int LTE = 22;
   public static final int CHAR = 40;
@@ -108,7 +109,8 @@ public interface sym {
   "INTLIT",
   "FLOATLIT",
   "UPLUS",
-  "UMINUS"
+  "UMINUS",
+  "CAST"
   };
 }
 

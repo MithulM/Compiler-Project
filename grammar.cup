@@ -53,58 +53,86 @@ terminal String CHARLIT;
 terminal String STRLIT;
 terminal String INTLIT;
 terminal String FLOATLIT;
-
-// NON TERMINALS //
+terminal UPLUS, UMINUS, CAST;
 
 non terminal Program program;
+non terminal Memberdecls memberdecls;
+non terminal Fielddecls fielddecls;
+non terminal Methoddecls methoddecls;
+non terminal Fielddecl fielddecl;
+non terminal Methoddecl methoddecl;
+non terminal Expr optionalexpr;
+non terminal Boolean optionalsemi;
+non terminal String type;
+non terminal Argdecls argdecllist;
+non terminal Argdecls argdecls;
+non terminal Argdecl argdecl;
 non terminal Stmts stmts;
 non terminal Stmt stmt;
 non terminal Stmts ifEnd;
-non terminal Name name;
-non terminal ArrayList<Expr> args;
+non terminal Exprs args;
 non terminal ArrayList<Token> readlist;
 non terminal ArrayList<Token> printlist;
 non terminal ArrayList<Token> printlinelist;
+non terminal Name name;
 non terminal Expr expr;
-non terminal Boolean optionalsemi;
-non terminal String type;
 
-// PRECEDENCE //
-
-terminal UPLUS, UMINUS;
-
-// ASSIGN
+// Assignment
 precedence left ASSIGN;
 
-// TERNARY
+// Ternary
 precedence left QUESTION;
 
-// EQUALITY
+// Equality
 precedence left OR;
 precedence left AND;
 
-// RELATION
+// Relation
 precedence left NE, EQ;
 precedence left GT, GTE, LT, LTE;
 
-// MATH
+// MDAS
 precedence left PLUS, MINUS;
 precedence left MULTI, DIV;
 
-// UNARY
-precedence left NOT, UPLUS, UMINUS;
+// Type casting
+precedence left CAST;
 
-program ::=          stmts:s                                                     {: RESULT = new Program(s); :};
+// Unary
+precedence left NOT, UPLUS, UMINUS, INC, DEC;
 
-optionalsemi ::=     SEMI                                                        {: RESULT = true; :}
-                   |                                                             {: RESULT = false; :};
+program ::=         CLASS ID:id LCURLY memberdecls:ms RCURLY                     {: RESULT = new Program(id, ms); :};
 
-type ::=             INT                                                         {: RESULT = "int"; :}
-                   | FLOAT                                                       {: RESULT = "float"; :}
-                   | BOOL                                                        {: RESULT = "bool"; :}
-                   | CHAR                                                        {: RESULT = "char"; :};
+memberdecls ::=     fielddecl:f memberdecls:mds                                  {: RESULT = new Memberdecls(f, mds); :}
+                  | methoddecls:ms                                               {: RESULT = new Memberdecls(ms); :};
 
-stmts ::=           stmt:st stmts:sts                                            {:sts.add(st); RESULT = sts;:}
+fielddecls ::=      fielddecl:f fielddecls:fs                                    {: fs.add(f); RESULT = fs; :}
+                  |                                                              {: RESULT = new Fielddecls(); :};
+
+methoddecls ::=     methoddecl:m methoddecls:ms                                  {: ms.add(m); RESULT = ms; :}
+                  |                                                              {: RESULT = new Methoddecls(); :};
+
+fielddecl ::=       FINAL type:t ID:id optionalexpr:opex SEMI                    {: RESULT = new Fielddecl(t, id, opex, true); :}
+                  | type:t ID:id optionalexpr:opex SEMI                          {: RESULT = new Fielddecl(t, id, opex, false); :}
+                  | type:t ID:id LSQR INTLIT:len RSQR SEMI                       {: RESULT = new Fielddecl(t, id, Integer.parseInt(len)); :};
+
+methoddecl ::=      type:t ID:id LPAREN argdecls:as RPAREN LCURLY fielddecls:fs
+                    stmts:sts RCURLY optionalsemi:opsemi                         {: RESULT = new Methoddecl(t, id, as, fs, sts, opsemi); :}
+                  | VOID ID:id LPAREN argdecls:as RPAREN
+                    LCURLY fielddecls:fs stmts:sts RCURLY optionalsemi:opsemi    {: RESULT = new Methoddecl("void", id, as, fs, sts, opsemi); :};
+
+optionalexpr ::=    ASSIGN expr:e                                                {: RESULT = e; :}
+                  |                                                              {: RESULT = null; :};
+
+optionalsemi ::=    SEMI                                                         {: RESULT = true; :}
+                  |                                                              {: RESULT = false; :};
+
+type ::=            INT                                                          {: RESULT = "int"; :}
+                  | FLOAT                                                        {: RESULT = "float"; :}
+                  | BOOL                                                         {: RESULT = "bool"; :}
+                  | CHAR                                                         {: RESULT = "char"; :};
+
+stmts ::=           stmt:st stmts:sts                                            {: sts.add(st); RESULT = sts; :}
                   |                                                              {: RESULT = new Stmts(); :};
 
 stmt ::=            IF LPAREN expr:e RPAREN LCURLY stmts:s RCURLY ifEnd:el       {: RESULT = new IfStmt(e, s, el); :}
@@ -119,7 +147,7 @@ stmt ::=            IF LPAREN expr:e RPAREN LCURLY stmts:s RCURLY ifEnd:el      
                   | RETURN expr:e SEMI                                           {: RESULT = new ReturnStmt(e); :}
                   | name:n INC SEMI                                              {: RESULT = new UnaryStmt(n, "++"); :}
                   | name:n DEC SEMI                                              {: RESULT = new UnaryStmt(n, "--"); :}
-                  | LCURLY stmts:sts RCURLY optionalsemi:opsemi                  {: RESULT = new ScopeStmt(sts); :};
+                  | LCURLY fielddecls:fs stmts:sts RCURLY optionalsemi:opsemi    {: RESULT = new ScopeStmt(sts); :};
 
 ifEnd ::=           ELSE LCURLY stmts:sts RCURLY                                 {: RESULT = sts; :}
                   |                                                              {: RESULT = null; :};
@@ -127,14 +155,22 @@ ifEnd ::=           ELSE LCURLY stmts:sts RCURLY                                
 name ::=            ID:id                                                        {: RESULT = new Name(id); :}
                   | ID:id LSQR expr:e RSQR                                       {: RESULT = new Name(id, e); :};
 
-args ::=            expr:e COMMA args:args                                       {:args.add(0,e); RESULT = args;:}
-                  | expr:e                                                       {:ArrayList<Expr> temp = new ArrayList<>(); temp.add(e); RESULT = temp;:};
+args ::=            expr:e COMMA args:args                                       {:args.add(e); RESULT = args;:}
+                  | expr:e                                                       {:Exprs temp = new Exprs(); temp.add(e); RESULT = temp;:};
 
-readlist ::=        name:n COMMA readlist:rl                                     {:rl.add(0,n); RESULT = rl;:}
-                  | name:n                                                       {:ArrayList<Token> temp = new ArrayList<>(); temp.add(n); RESULT = temp;:};
+argdecls ::=        argdecllist:alst                                             {: RESULT = alst; :}
+                  |                                                              {: RESULT = new Argdecls(); :};
+argdecllist ::=     argdecl:a COMMA argdecllist:alst                             {: alst.add(a); RESULT = alst; :}
+                  | argdecl:a                                                    {: Argdecls temp = new Argdecls(); temp.add(a); RESULT = temp; :};
 
-printlist ::=       expr:e COMMA printlist:pl                                    {:pl.add(0,e); RESULT = pl;:}
-                  | expr:e                                                       {:ArrayList<Token> temp = new ArrayList<>(); temp.add(e); RESULT = temp;:};
+argdecl ::=         type:t ID:id                                                 {: RESULT = new Argdecl(t, id); :}
+                  | type:t ID:id LSQR RSQR                                       {: RESULT = new Argdecl(t, id); :};
+
+readlist ::=        name:n COMMA readlist:rl                                     {: rl.add(0,n); RESULT = rl;:}
+                  | name:n                                                       {: ArrayList<Token> temp = new ArrayList<>(); temp.add(n); RESULT = temp;:};
+
+printlist ::=       expr:e COMMA printlist:pl                                    {: pl.add(0,e); RESULT = pl;:}
+                  | expr:e                                                       {: ArrayList<Token> temp = new ArrayList<>(); temp.add(e); RESULT = temp;:};
 
 printlinelist ::=   printlist:pl                                                 {: RESULT = pl; :}
                   |                                                              {: RESULT = new ArrayList<Token>(); :};
@@ -152,7 +188,7 @@ expr ::=            name:n                                                      
                   | NOT expr:e                                                   {: RESULT = new UnaryOpExpr(e, "~"); :}
                   | MINUS expr:e                                                 {: RESULT = new UnaryOpExpr(e, "-"); :} %prec UMINUS
                   | PLUS expr:e                                                  {: RESULT = new UnaryOpExpr(e, "+"); :} %prec UPLUS
-                  | LPAREN type:t RPAREN expr:e                                  {: RESULT = new CastExpr(t, e); :}
+                  | LPAREN type:t RPAREN expr:e                                  {: RESULT = new CastExpr(t, e); :} %prec CAST
                   | expr:e1 PLUS expr:e2                                         {: RESULT = new BinaryOpExpr(e1, new BinaryOp("+"), e2); :}
                   | expr:e1 MINUS expr:e2                                        {: RESULT = new BinaryOpExpr(e1, new BinaryOp("-"), e2); :}
                   | expr:e1 MULTI expr:e2                                        {: RESULT = new BinaryOpExpr(e1, new BinaryOp("*"), e2); :}

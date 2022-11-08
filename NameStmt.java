@@ -1,4 +1,4 @@
-public class NameStmt extends Stmt{
+public class NameStmt extends Stmt {
     Name name;
     Expr exp;
 
@@ -8,7 +8,7 @@ public class NameStmt extends Stmt{
     }
 
     @Override
-    public String toString(int depth) {
-        return getTabs(depth) + name.toString() + " = " + exp.toString() + ";";
+    public String toString(int nest) {
+        return getTabs(nest) + name.toString() + " = " + exp.toString() + ";";
     }
 }
