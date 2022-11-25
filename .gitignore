@@ -36,3 +36,10 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Compiled java sources #
+#########################
+Lexer.java
+parser.java
+sym.java
+scannerTestOutput.txt
