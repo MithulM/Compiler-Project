@@ -1,7 +1,7 @@
 JAVA=java
 JAVAC=javac
-JFLEX=$(JAVA) -jar ./jflex-full-1.8.2.jar
-CUPJAR=./java-cup-11b.jar
+JFLEX=$(JAVA) -jar ./resources/jflex-full-1.8.2.jar
+CUPJAR=./resources/java-cup-11b.jar
 CUP=$(JAVA) -jar $(CUPJAR)
 CP=.:$(CUPJAR)
 
@@ -21,7 +21,7 @@ all: scannerTests
 
 scannerTests: build
 	@rm -f scannerTestOutputs.txt;
-	@for f in ./*.txt; do \
+	@for f in ./testscases/*.txt; do \
 		echo "Output of file $$f" >> scannerTestOutputs.txt; \
 		$(JAVA) -cp $(CP) ScannerTest $$f >> scannerTestOutputs.txt; \
 	done;

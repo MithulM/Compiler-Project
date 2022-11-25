@@ -1,11 +1,11 @@
-Output of file ./Phase2_empty.txt
+Output of file ./testscases/Phase2_empty.txt
 class empty {
 }
-Output of file ./Phase2_fields.txt
+Output of file ./testscases/Phase2_fields.txt
 class onlyFields {
 	int x;
 }
-Output of file ./Phase2_full.txt
+Output of file ./testscases/Phase2_full.txt
 class test {
 	int x[7];
 	float pythag(float vals) {
@@ -63,7 +63,7 @@ class test {
 	}
 
 }
-Output of file ./Phase2_methods.txt
+Output of file ./testscases/Phase2_methods.txt
 class onlyMethods {
 	int x() {
 		print(x);
