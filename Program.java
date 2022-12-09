@@ -1,13 +1,17 @@
 class Program extends Token {
-  String className;
-  Memberdecls memberdecls;
+    String className;
+    Memberdecls memberdecls;
 
-  public Program(String id, Memberdecls m) {
-    className = id;
-    memberdecls = m;
-  }
+    public Program(String id, Memberdecls m) {
+        className = id;
+        memberdecls = m;
+    }
 
-  public String toString(int nest) {
-    return "class " + className + " {\n" + memberdecls.toString(nest + 1) + "}\n";
-  }
+    public String toString(int nest) {
+        return "class " + className + " {\n" + memberdecls.toString(nest + 1) + "}\n";
+    }
+
+    public String typeCheck() throws UTDLangException {
+        return "";
+    }
 }

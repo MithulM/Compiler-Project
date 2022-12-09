@@ -1,5 +1,7 @@
 abstract class Token {
 
+    // protected static SymbolTable symbolTable;
+
     protected String getTabs(int t) {
         String tabs = "";
         for (int i = 0; i < t; i++)
@@ -8,6 +10,9 @@ abstract class Token {
     }
 
     public String toString(int t) {
-        return "Token toString missing override";
+        return "";
     }
+
+    // abstract String typeCheck() throws UTDLangException;
+
 }

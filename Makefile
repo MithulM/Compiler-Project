@@ -5,7 +5,7 @@ CUPJAR=./resources/java-cup-11b.jar
 CUP=$(JAVA) -jar $(CUPJAR)
 CP=.:$(CUPJAR)
 
-default: all
+default: scannerTests
 
 .SUFFIXES: $(SUFFIXES) .class .java
 
@@ -14,14 +14,20 @@ default: all
 
 FILE=	Lexer.java parser.java sym.java \
 	LexerRules.java ScannerTest.java \
-	Program.java Expr.java \
+	Program.java Expr.java TypeCheckingTest.java\
 	Name.java BinaryOp.java Token.java
 
-all: scannerTests
+typeCheckingTests: build
+	@rm -f typeCheckingTestOutputs.txt;
+	@for f in ./testcases/*.as; do \
+		echo "Output of file $$f" >> typeCheckingTestOutputs.txt; \
+		$(JAVA) -cp $(CP) TypeCheckingTest $$f >> typeCheckingTestOutputs.txt; \
+	done;
+	@cat -n typeCheckingTestOutputs.txt
 
 scannerTests: build
-	@rm -f scannerTestOutputs.txt;
-	@for f in ./testscases/*.txt; do \
+	@rm -f scannerTestOutputs.as;
+	@for f in ./testscases/*.as; do \
 		echo "Output of file $$f" >> scannerTestOutputs.txt; \
 		$(JAVA) -cp $(CP) ScannerTest $$f >> scannerTestOutputs.txt; \
 	done;

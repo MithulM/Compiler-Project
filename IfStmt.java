@@ -1,10 +1,12 @@
 public class IfStmt extends Stmt {
     Expr exp;
+    Fielddecls fielddecls;
     Stmts ifSts;
-    Stmts elseSts;
+    IfEnd elseSts;
 
-    public IfStmt(Expr exp, Stmts ifSts, Stmts elseSts) {
+    public IfStmt(Expr exp, Fielddecls fielddecls, Stmts ifSts, IfEnd elseSts) {
         this.exp = exp;
+        this.fielddecls = fielddecls;
         this.ifSts = ifSts;
         this.elseSts = elseSts;
     }
@@ -12,12 +14,11 @@ public class IfStmt extends Stmt {
     @Override
     public String toString(int nest) {
         String res = getTabs(nest) + "if (" + exp.toString() + ") {\n" +
+                fielddecls.toString(nest + 1) +
                 ifSts.toString(nest + 1) +
                 getTabs(nest) + "}";
         if (elseSts != null) {
-            res += " else {\n" +
-                    elseSts.toString(nest + 1) +
-                    getTabs(nest) + "}";
+            res += elseSts.toString(nest);
         }
         return res;
     }

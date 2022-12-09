@@ -69,7 +69,7 @@ non terminal Argdecls argdecls;
 non terminal Argdecl argdecl;
 non terminal Stmts stmts;
 non terminal Stmt stmt;
-non terminal Stmts ifEnd;
+non terminal IfEnd ifEnd;
 non terminal Exprs args;
 non terminal ArrayList<Token> readlist;
 non terminal ArrayList<Token> printlist;
@@ -135,8 +135,10 @@ type ::=            INT                                                         
 stmts ::=           stmt:st stmts:sts                                            {: sts.add(st); RESULT = sts; :}
                   |                                                              {: RESULT = new Stmts(); :};
 
-stmt ::=            IF LPAREN expr:e RPAREN LCURLY stmts:s RCURLY ifEnd:el       {: RESULT = new IfStmt(e, s, el); :}
-                  | WHILE LPAREN expr:e RPAREN LCURLY stmts:sts RCURLY           {: RESULT = new WhileStmt(e, sts); :}
+stmt ::=            IF LPAREN expr:e RPAREN LCURLY
+                    fielddecls:fs stmts:sts RCURLY ifEnd:el                      {: RESULT = new IfStmt(e, fs, sts, el); :}
+                  | WHILE LPAREN expr:e RPAREN LCURLY
+                    fielddecls:fs stmts:sts RCURLY                               {: RESULT = new WhileStmt(e, fs, sts); :}
                   | name:n ASSIGN expr:e SEMI                                    {: RESULT = new NameStmt(n, e); :}
                   | READ LPAREN readlist:rl RPAREN SEMI                          {: RESULT = new FuncStmt("read", rl); :}
                   | PRINT LPAREN printlist:pl RPAREN SEMI                        {: RESULT = new FuncStmt("print", pl); :}
@@ -149,7 +151,7 @@ stmt ::=            IF LPAREN expr:e RPAREN LCURLY stmts:s RCURLY ifEnd:el      
                   | name:n DEC SEMI                                              {: RESULT = new UnaryStmt(n, "--"); :}
                   | LCURLY fielddecls:fs stmts:sts RCURLY optionalsemi:opsemi    {: RESULT = new ScopeStmt(sts); :};
 
-ifEnd ::=           ELSE LCURLY stmts:sts RCURLY                                 {: RESULT = sts; :}
+ifEnd ::=           ELSE fielddecls:fs LCURLY stmts:sts RCURLY                   {: RESULT = new IfEnd(fs, sts); :}
                   |                                                              {: RESULT = null; :};
 
 name ::=            ID:id                                                        {: RESULT = new Name(id); :}

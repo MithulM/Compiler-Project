@@ -1,72 +1,404 @@
-Output of file ./testscases/Phase2_empty.txt
-class empty {
+Output of file ./testscases/badDec.as
+class x {
+	void main() {
+		bool x;
+		x--;
+	}
+
 }
-Output of file ./testscases/Phase2_fields.txt
-class onlyFields {
-	int x;
+Output of file ./testscases/badInc.as
+class x {
+	void main() {
+		char y;
+		y++;
+	}
+
 }
-Output of file ./testscases/Phase2_full.txt
-class test {
-	int x[7];
-	float pythag(float vals) {
-		float a = vals[0];
-		float b = vals[1];
-		float c;
-		a = (a * a);
-		b = (b * b);
-		c = sqrt((a + b));
-		return (c + 0.0);
+Output of file ./testscases/badNegation.as
+class x {
+	void main() {
+		char y;
+		bool z = (~y);
+	}
+
+}
+Output of file ./testscases/badString.as
+class x {
+	void main() {
+		print(("test" - "other"));
+	}
+
+}
+Output of file ./testscases/badTernaryCond.as
+class x {
+	void main() {
+		bool y = ( 1.0  ?  true  :  false );
+	}
+
+}
+Output of file ./testscases/badTernaryTypes.as
+class x {
+	void main() {
+		float x = ( true  ?  1.0  :  false );
+	}
+
+}
+Output of file ./testscases/boolToFloat.as
+class x {
+	void main() {
+		float y = false;
+	}
+
+}
+Output of file ./testscases/boolToInt.as
+class x {
+	void main() {
+		int y = false;
+	}
+
+}
+Output of file ./testscases/callNonExistFunc.as
+class x {
+	void main() {
+		nonExistFoo();
+	}
+
+}
+Output of file ./testscases/charToFloat.as
+class x {
+	void main() {
+		char x;
+		float y;
+		y = x;
+	}
+
+}
+Output of file ./testscases/charToInt.as
+class x {
+	int main() {
+		int y = 'c';
+	}
+
+}
+Output of file ./testscases/floatToInt.as
+class x {
+	void main() {
+		int i = 1.0;
+	}
+
+}
+Output of file ./testscases/fullValidProgram.as
+class testValid {
+	float sqrt(float square, float guess) {
+		float nextGuess;
+		nextGuess = (0.5 * (guess + (square / guess)));
+		if ((((nextGuess - guess) > (-0.00001)) && ((nextGuess - guess) < 0.00001))) {
+			return nextGuess;
+		}
+		return sqrt(square, nextGuess);
+	}
+
+	float getDistance(float vecA, float vecB, int size) {
+		int i = 0;
+		float sum = 0;
+		while ((i < size)) {
+			sum = (sum + ((vecA[i] - vecB[i]) * (vecA[i] - vecB[i])));
+			i++;
+		}
+		return sqrt(sum, 2);
 	}
 
 	void main() {
-		float height;
-		float length;
-		float triVals[3];
-		read(height, length);
-		triVals[0] = height;
-		triVals[1] = length;
-		{
-			triVals[2] = pythag(triVals);
-		}
-		print(triVals[2]);
-		pythag();
-		pythag(x);
-		pythag(x, y);
-		x = pythag();
-		x = pythag(x, y);
-	}
-
-	float testUnmatchedIfInAClosedMatchedIf() {
-		{
-			if (true) {
-				if (thisShouldntHaveAnElse) {
-					read(betterNot);
-				}
-			} else {
-				justAStatement = "ye";
+		float a[10];
+		float b[10];
+		final int maxSize = 10;
+		int thisSize;
+		bool validInput;
+		int i;
+		print((("Input the size of your vectors: (max:" + maxSize) + ")"));
+		printline();
+		validInput = false;
+		while ((~validInput)) {
+			read(thisSize);
+			if (((thisSize > 0) && (thisSize <= maxSize))) {
+				validInput = true;
+			}			 else {
+				print((("Invalid size!\nInput the size of your vectors: (max:" + maxSize) + ")"));
+				printline();
 			}
 		}
-	}
-
-	int someAdditionalRandomTests(char test) {
-		printline();
-		read(x, y);
-		read(x);
-		print(x);
-		print(x, y);
-		x++;
-		x--;
-		x[((0 + 8) || 7)]++;
-		y[((((8 * (~7)) - tensai()) + tensai((16 - 32), 4)) - tensai(x[6]))]--;
-		testFunc((6 + 7), ((-(+4)) - 2));
-		testFunc();
+		i = 0;
+		while ((i < thisSize)) {
+			read(a[i], b[i]);
+			i++;
+		}
+		print("Distance between vectors is: ", getDistance(a, b, thisSize));
 	}
 
 }
-Output of file ./testscases/Phase2_methods.txt
-class onlyMethods {
-	int x() {
-		print(x);
+Output of file ./testscases/incompatBinary.as
+class x {
+	int main() {
+		float y;
+		while ((y || y)) {
+			return 1;
+		}
+		return 0;
+	}
+
+}
+Output of file ./testscases/intArrayToBoolArray.as
+class x {
+	int main() {
+		int x[1];
+		bool y[1];
+		y = x;
+		return 0;
+	}
+
+}
+Output of file ./testscases/noReturn.as
+class x {
+	int main() {
+	}
+
+}
+Output of file ./testscases/reassignFinal.as
+class x {
+	final int y = 1;
+	void main() {
+		y = 2;
+	}
+
+}
+Output of file ./testscases/redefMethod.as
+class x {
+	void foo() {
+	}
+
+	int foo(int x) {
+		return 1;
+	}
+
+}
+Output of file ./testscases/redefVar.as
+class x {
+	int y;
+	char y;
+}
+Output of file ./testscases/redefVarAsMethod.as
+class x {
+	char y;
+	void y() {
+	}
+
+}
+Output of file ./testscases/returnTypeBad.as
+class x {
+	int foo() {
+		return 1.0;
+	}
+
+}
+Output of file ./testscases/badDec.as
+class x {
+	void main() {
+		bool x;
+		x--;
+	}
+
+}
+Output of file ./testscases/badInc.as
+class x {
+	void main() {
+		char y;
+		y++;
+	}
+
+}
+Output of file ./testscases/badNegation.as
+class x {
+	void main() {
+		char y;
+		bool z = (~y);
+	}
+
+}
+Output of file ./testscases/badString.as
+class x {
+	void main() {
+		print(("test" - "other"));
+	}
+
+}
+Output of file ./testscases/badTernaryCond.as
+class x {
+	void main() {
+		bool y = ( 1.0  ?  true  :  false );
+	}
+
+}
+Output of file ./testscases/badTernaryTypes.as
+class x {
+	void main() {
+		float x = ( true  ?  1.0  :  false );
+	}
+
+}
+Output of file ./testscases/boolToFloat.as
+class x {
+	void main() {
+		float y = false;
+	}
+
+}
+Output of file ./testscases/boolToInt.as
+class x {
+	void main() {
+		int y = false;
+	}
+
+}
+Output of file ./testscases/callNonExistFunc.as
+class x {
+	void main() {
+		nonExistFoo();
+	}
+
+}
+Output of file ./testscases/charToFloat.as
+class x {
+	void main() {
+		char x;
+		float y;
+		y = x;
+	}
+
+}
+Output of file ./testscases/charToInt.as
+class x {
+	int main() {
+		int y = 'c';
+	}
+
+}
+Output of file ./testscases/floatToInt.as
+class x {
+	void main() {
+		int i = 1.0;
+	}
+
+}
+Output of file ./testscases/fullValidProgram.as
+class testValid {
+	float sqrt(float square, float guess) {
+		float nextGuess;
+		nextGuess = (0.5 * (guess + (square / guess)));
+		if ((((nextGuess - guess) > (-0.00001)) && ((nextGuess - guess) < 0.00001))) {
+			return nextGuess;
+		}
+		return sqrt(square, nextGuess);
+	}
+
+	float getDistance(float vecA, float vecB, int size) {
+		int i = 0;
+		float sum = 0;
+		while ((i < size)) {
+			sum = (sum + ((vecA[i] - vecB[i]) * (vecA[i] - vecB[i])));
+			i++;
+		}
+		return sqrt(sum, 2);
+	}
+
+	void main() {
+		float a[10];
+		float b[10];
+		final int maxSize = 10;
+		int thisSize;
+		bool validInput;
+		int i;
+		print((("Input the size of your vectors: (max:" + maxSize) + ")"));
+		printline();
+		validInput = false;
+		while ((~validInput)) {
+			read(thisSize);
+			if (((thisSize > 0) && (thisSize <= maxSize))) {
+				validInput = true;
+			}			 else {
+				print((("Invalid size!\nInput the size of your vectors: (max:" + maxSize) + ")"));
+				printline();
+			}
+		}
+		i = 0;
+		while ((i < thisSize)) {
+			read(a[i], b[i]);
+			i++;
+		}
+		print("Distance between vectors is: ", getDistance(a, b, thisSize));
+	}
+
+}
+Output of file ./testscases/incompatBinary.as
+class x {
+	int main() {
+		float y;
+		while ((y || y)) {
+			return 1;
+		}
+		return 0;
+	}
+
+}
+Output of file ./testscases/intArrayToBoolArray.as
+class x {
+	int main() {
+		int x[1];
+		bool y[1];
+		y = x;
+		return 0;
+	}
+
+}
+Output of file ./testscases/noReturn.as
+class x {
+	int main() {
+	}
+
+}
+Output of file ./testscases/reassignFinal.as
+class x {
+	final int y = 1;
+	void main() {
+		y = 2;
+	}
+
+}
+Output of file ./testscases/redefMethod.as
+class x {
+	void foo() {
+	}
+
+	int foo(int x) {
+		return 1;
+	}
+
+}
+Output of file ./testscases/redefVar.as
+class x {
+	int y;
+	char y;
+}
+Output of file ./testscases/redefVarAsMethod.as
+class x {
+	char y;
+	void y() {
+	}
+
+}
+Output of file ./testscases/returnTypeBad.as
+class x {
+	int foo() {
+		return 1.0;
 	}
 
 }
