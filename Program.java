@@ -7,11 +7,13 @@ class Program extends Token {
         memberdecls = m;
     }
 
+    @Override
     public String toString(int nest) {
         return "class " + className + " {\n" + memberdecls.toString(nest + 1) + "}\n";
     }
 
-    public String typeCheck() throws UTDLangException {
-        return "";
+    @Override
+    public SymbolTable.Type typeCheck() throws UTDLangException {
+        return memberdecls.typeCheck();
     }
 }

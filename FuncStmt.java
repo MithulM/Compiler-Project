@@ -18,4 +18,9 @@ public class FuncStmt extends Stmt {
         list = list.substring(0, Math.max(list.length() - 2, 0));
         return getTabs(nest) + name + "(" + list + ");";
     }
+
+    @Override
+    public SymbolTable.Type typeCheck() throws UTDLangException {
+        return null;
+    }
 }

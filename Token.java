@@ -1,6 +1,6 @@
 abstract class Token {
 
-    // protected static SymbolTable symbolTable;
+    protected static SymbolTable symbolTable;
 
     protected String getTabs(int t) {
         String tabs = "";
@@ -13,6 +13,5 @@ abstract class Token {
         return "";
     }
 
-    // abstract String typeCheck() throws UTDLangException;
-
+    abstract SymbolTable.Type typeCheck() throws UTDLangException;
 }

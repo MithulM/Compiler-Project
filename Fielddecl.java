@@ -20,6 +20,7 @@ class Fielddecl extends Token {
         declType = 1;
     }
 
+    @Override
     public String toString(int nest) {
         switch (declType) {
             case 0:
@@ -29,6 +30,25 @@ class Fielddecl extends Token {
                 return getTabs(nest) + type + " " + id + "[" + arrLength + "]" + ";";
             default:
                 return "";
+        }
+    }
+
+    @Override
+    public SymbolTable.Type typeCheck() throws UTDLangException {
+        SymbolTable.Type varType;
+        switch (declType) {
+            case 0:
+                varType = new SymbolTable.Type(type, (isFinal ? "final" : ""), null);
+                if ((opex != null) && opex.typeCheck().coercible(varType))
+                    throw new UTDLangException("Incompatable types on both sides of '='");
+                symbolTable.addVar(id, varType);
+                return varType;
+            case 1:
+                varType = new SymbolTable.Type(type, "[]", null);
+                symbolTable.addVar(id, varType);
+                return varType;
+            default:
+                return null;
         }
     }
 }

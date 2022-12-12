@@ -22,4 +22,17 @@ public class IfStmt extends Stmt {
         }
         return res;
     }
+
+    @Override
+    public SymbolTable.Type typeCheck() throws UTDLangException {
+        if (!exp.typeCheck().coercible("bool"))
+            throw new UTDLangException("Expected bool in 'if' expression");
+        symbolTable.startScope();
+        fielddecls.typeCheck();
+        ifSts.typeCheck();
+        symbolTable.endScope();
+        if (elseSts != null)
+            elseSts.typeCheck();
+        return new SymbolTable.Type("if", "", null);
+    }
 }

@@ -9,4 +9,9 @@ public class SimplifiedExpr extends Expr {
     public String toString() {
         return e.toString();
     }
+
+    @Override
+    public SymbolTable.Type typeCheck() throws UTDLangException {
+        return e.typeCheck();
+    }
 }

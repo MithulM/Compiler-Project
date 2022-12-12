@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class FuncCallExpr extends Expr {
     String id;
     Exprs args;
@@ -18,5 +16,15 @@ public class FuncCallExpr extends Expr {
     public String toString() {
         String list = args.toString();
         return id + "(" + list + ")";
+    }
+
+    @Override
+    public SymbolTable.Type typeCheck() throws UTDLangException {
+        SymbolTable.Type methodType = symbolTable.get(id), argType = args.typeCheck();
+        if (!methodType.isMethod())
+            throw new UTDLangException(id + " is not a method.");
+        if (!methodType.args.equals(argType.args))
+            throw new UTDLangException("Can't call method " + id + " with given args.");
+        return new SymbolTable.Type(methodType.type, "", null);
     }
 }

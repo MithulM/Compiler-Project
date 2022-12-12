@@ -11,4 +11,10 @@ public class CastExpr extends Expr {
     public String toString() {
         return "((" + type + ") " + "(" + e.toString() + "))";
     }
+
+    @Override
+    public SymbolTable.Type typeCheck() throws UTDLangException {
+        e.typeCheck();
+        return new SymbolTable.Type(type, "", null);
+    }
 }

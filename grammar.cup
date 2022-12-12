@@ -139,7 +139,7 @@ stmt ::=            IF LPAREN expr:e RPAREN LCURLY
                     fielddecls:fs stmts:sts RCURLY ifEnd:el                      {: RESULT = new IfStmt(e, fs, sts, el); :}
                   | WHILE LPAREN expr:e RPAREN LCURLY
                     fielddecls:fs stmts:sts RCURLY                               {: RESULT = new WhileStmt(e, fs, sts); :}
-                  | name:n ASSIGN expr:e SEMI                                    {: RESULT = new NameStmt(n, e); :}
+                  | name:n ASSIGN expr:e SEMI                                    {: RESULT = new AssignStmt(n, e); :}
                   | READ LPAREN readlist:rl RPAREN SEMI                          {: RESULT = new FuncStmt("read", rl); :}
                   | PRINT LPAREN printlist:pl RPAREN SEMI                        {: RESULT = new FuncStmt("print", pl); :}
                   | PRINTLN LPAREN printlinelist:pll RPAREN SEMI                 {: RESULT = new FuncStmt("printline", pll); :}
@@ -149,9 +149,9 @@ stmt ::=            IF LPAREN expr:e RPAREN LCURLY
                   | RETURN expr:e SEMI                                           {: RESULT = new ReturnStmt(e); :}
                   | name:n INC SEMI                                              {: RESULT = new UnaryStmt(n, "++"); :}
                   | name:n DEC SEMI                                              {: RESULT = new UnaryStmt(n, "--"); :}
-                  | LCURLY fielddecls:fs stmts:sts RCURLY optionalsemi:opsemi    {: RESULT = new ScopeStmt(sts); :};
+                  | LCURLY fielddecls:fs stmts:sts RCURLY optionalsemi:opsemi    {: RESULT = new ScopeStmt(fs, sts); :};
 
-ifEnd ::=           ELSE fielddecls:fs LCURLY stmts:sts RCURLY                   {: RESULT = new IfEnd(fs, sts); :}
+ifEnd ::=           ELSE LCURLY fielddecls:fs stmts:sts RCURLY                   {: RESULT = new IfEnd(fs, sts); :}
                   |                                                              {: RESULT = null; :};
 
 name ::=            ID:id                                                        {: RESULT = new Name(id); :}
@@ -165,8 +165,8 @@ argdecls ::=        argdecllist:alst                                            
 argdecllist ::=     argdecl:a COMMA argdecllist:alst                             {: alst.add(a); RESULT = alst; :}
                   | argdecl:a                                                    {: Argdecls temp = new Argdecls(); temp.add(a); RESULT = temp; :};
 
-argdecl ::=         type:t ID:id                                                 {: RESULT = new Argdecl(t, id); :}
-                  | type:t ID:id LSQR RSQR                                       {: RESULT = new Argdecl(t, id); :};
+argdecl ::=         type:t ID:id                                                 {: RESULT = new Argdecl(t, id, ""); :}
+                  | type:t ID:id LSQR RSQR                                       {: RESULT = new Argdecl(t, id, "[]"); :};
 
 readlist ::=        name:n COMMA readlist:rl                                     {: rl.add(0,n); RESULT = rl;:}
                   | name:n                                                       {: ArrayList<Token> temp = new ArrayList<>(); temp.add(n); RESULT = temp;:};

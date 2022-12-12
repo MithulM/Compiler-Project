@@ -5,7 +5,7 @@ CUPJAR=./resources/java-cup-11b.jar
 CUP=$(JAVA) -jar $(CUPJAR)
 CP=.:$(CUPJAR)
 
-default: scannerTests
+default: typeCheckingTests
 
 .SUFFIXES: $(SUFFIXES) .class .java
 
@@ -19,10 +19,7 @@ FILE=	Lexer.java parser.java sym.java \
 
 typeCheckingTests: build
 	@rm -f typeCheckingTestOutputs.txt;
-	@for f in ./testcases/*.as; do \
-		echo "Output of file $$f" >> typeCheckingTestOutputs.txt; \
-		$(JAVA) -cp $(CP) TypeCheckingTest $$f >> typeCheckingTestOutputs.txt; \
-	done;
+	$(JAVA) -cp $(CP) TypeCheckingTest /mnt/c/Users/Mithul/Documents/Mithul/School/CS 4386/CompilerProjcet/testscases/fullValidProgram.as;
 	@cat -n typeCheckingTestOutputs.txt
 
 scannerTests: build

@@ -18,7 +18,17 @@ class Memberdecls extends Token {
         methoddecls = ms;
     }
 
+    @Override
     public String toString(int nest) {
         return fielddecls.toString(nest) + methoddecls.toString(nest);
+    }
+
+    @Override
+    public SymbolTable.Type typeCheck() throws UTDLangException {
+        symbolTable.startScope();
+        fielddecls.typeCheck();
+        methoddecls.typeCheck();
+        symbolTable.endScope();
+        return new SymbolTable.Type("class", "", null);
     }
 }

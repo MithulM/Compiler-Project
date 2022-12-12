@@ -1,0 +1,2 @@
+## I have implemented all the type checks for all classes but there is a runtime issue that i couldn't finish that suddenly came up last minute. 
+## Please read my implementations for the all the phase 3.

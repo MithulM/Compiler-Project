@@ -16,4 +16,15 @@ public class WhileStmt extends Stmt {
                 + sts.toString(nest + 1)
                 + getTabs(nest) + "}";
     }
+
+    @Override
+    public SymbolTable.Type typeCheck() throws UTDLangException {
+        if (!exp.typeCheck().coercible("bool"))
+            throw new UTDLangException("Expected boolean expression!");
+        symbolTable.startScope();
+        fielddecls.typeCheck();
+        sts.typeCheck();
+        symbolTable.endScope();
+        return new SymbolTable.Type("while", "", null);
+    }
 }

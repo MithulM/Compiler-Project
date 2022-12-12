@@ -14,9 +14,22 @@ class Methoddecl extends Token {
         this.sem = sem;
     }
 
+    @Override
     public String toString(int nest) {
         return getTabs(nest) + type + " " + id + "(" + as.toString() + ")" + " {\n"
                 + fs.toString(nest + 1) + sts.toString(nest + 1) + getTabs(nest) +
                 "}" + (sem ? ";" : "") + "\n";
+    }
+
+    @Override
+    public SymbolTable.Type typeCheck() throws UTDLangException {
+        symbolTable.startScope();
+        SymbolTable.Type args = as.typeCheck();
+        SymbolTable.Type method = new SymbolTable.Type(type, "method", args.args);
+        symbolTable.addVar(id, method);
+        fs.typeCheck();
+        sts.typeCheck();
+        symbolTable.endScope();
+        return method;
     }
 }

@@ -14,4 +14,13 @@ public class IfEnd extends Stmt {
                 sts.toString(nest + 1) +
                 getTabs(nest) + "}";
     }
+
+    @Override
+    public SymbolTable.Type typeCheck() throws UTDLangException {
+        symbolTable.startScope();
+        fielddecls.typeCheck();
+        sts.typeCheck();
+        symbolTable.endScope();
+        return new SymbolTable.Type("else", "", null);
+    }
 }

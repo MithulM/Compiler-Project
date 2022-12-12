@@ -9,4 +9,9 @@ public class NameExpr extends Expr {
     public String toString() {
         return name.toString();
     }
+
+    @Override
+    public SymbolTable.Type typeCheck() throws UTDLangException {
+        return name.typeCheck();
+    }
 }
