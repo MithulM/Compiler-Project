@@ -12,15 +12,19 @@ default: typeCheckingTests
 .java.class:
 	@$(JAVAC) -cp $(CP) $*.java
 
-FILE=	Lexer.java parser.java sym.java \
-	LexerRules.java ScannerTest.java \
-	Program.java Expr.java TypeCheckingTest.java\
-	Name.java BinaryOp.java Token.java
+FILE=	Lexer.java parser.java \
+	LexerRules.java TypeCheckingTest.java \
+	Program.java Memberdecls.java Methoddecl.java Fielddecl.java Expr.java Stmt.java \
+	Argdecl.java Name.java BinaryOp.java Token.java
 
 typeCheckingTests: build
-	@rm -f typeCheckingTestOutputs.txt;
-	$(JAVA) -cp $(CP) TypeCheckingTest /mnt/c/Users/Mithul/Documents/Mithul/School/CS 4386/CompilerProjcet/testscases/fullValidProgram.as;
+	@rm -f typeCheckingTestOutputs.txt
+	@for f in ./testscases/*.as; do \
+		echo "Output of file $$f" >> typeCheckingTestOutputs.txt; \
+		$(JAVA) -cp $(CP) TypeCheckingTest $$f 2>&1 >> typeCheckingTestOutputs.txt; \
+	done;
 	@cat -n typeCheckingTestOutputs.txt
+
 
 scannerTests: build
 	@rm -f scannerTestOutputs.as;
@@ -35,7 +39,7 @@ build: Lexer.java parser.java $(FILE:java=class)
 dump: Lexer.java parserD.java $(FILE:java=class)
 
 clean:
-	@rm -f *.~ *.class *.bak Lexer.java parser.java sym.java scannerTestOutputs.txt
+	@rm -f *.~ *.class *.bak Lexer.java parser.java sym.java *.txt
 
 Lexer.java: tokens.jflex
 	@$(JFLEX) tokens.jflex

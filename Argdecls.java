@@ -25,7 +25,7 @@ public class Argdecls extends Token {
     public SymbolTable.Type typeCheck() throws UTDLangException {
         ArrayList<SymbolTable.Type> args = new ArrayList<>();
         for (Argdecl a : argdecls)
-            args.add(new SymbolTable.Type(a.type, a.isArr, null));
+            args.add(a.typeCheck());
         return new SymbolTable.Type("Args", "", args);
     }
 }

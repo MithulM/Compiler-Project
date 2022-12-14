@@ -1,6 +1,6 @@
 abstract class Token {
 
-    protected static SymbolTable symbolTable;
+    protected static SymbolTable symbolTable = new SymbolTable();
 
     protected String getTabs(int t) {
         String tabs = "";

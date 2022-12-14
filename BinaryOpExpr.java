@@ -22,7 +22,8 @@ public class BinaryOpExpr extends Expr {
         if (op.isAdd()) {
             if (lType.type.equals("string") || rType.type.equals("string")) {
                 if (!(lType.coercible("string") && rType.coercible("string")))
-                    throw new UTDLangException("Can't cast to a string");
+                    throw new UTDLangException(
+                            "Can't implicitly cast to a string: " + lType + " and " + rType);
                 return new SymbolTable.Type("string", "", null);
             }
         }

@@ -44,7 +44,7 @@ public class TypeCheckingTest {
         if (program != null) {
             try {
                 SymbolTable.Type typeCatch = program.typeCheck();
-                System.err.println("All good!");
+                System.err.println(args[0] + " is all good!");
             } catch (UTDLangException u) {
                 System.err.println(u.toString());
             }

@@ -26,9 +26,10 @@ class Methoddecl extends Token {
         symbolTable.startScope();
         SymbolTable.Type args = as.typeCheck();
         SymbolTable.Type method = new SymbolTable.Type(type, "method", args.args);
-        symbolTable.addVar(id, method);
+        boolean needsReturn = !type.equals("void");
+        symbolTable.addMethod(id, method);
         fs.typeCheck();
-        sts.typeCheck();
+        sts.typeCheck(needsReturn, type);
         symbolTable.endScope();
         return method;
     }

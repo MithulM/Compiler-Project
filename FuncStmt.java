@@ -21,6 +21,9 @@ public class FuncStmt extends Stmt {
 
     @Override
     public SymbolTable.Type typeCheck() throws UTDLangException {
+        for (Token e : (ArrayList<Token>) args) {
+            e.typeCheck();
+        }
         return null;
     }
 }

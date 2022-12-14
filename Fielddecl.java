@@ -35,12 +35,16 @@ class Fielddecl extends Token {
 
     @Override
     public SymbolTable.Type typeCheck() throws UTDLangException {
-        SymbolTable.Type varType;
+        SymbolTable.Type varType, opType;
         switch (declType) {
             case 0:
                 varType = new SymbolTable.Type(type, (isFinal ? "final" : ""), null);
-                if ((opex != null) && opex.typeCheck().coercible(varType))
-                    throw new UTDLangException("Incompatable types on both sides of '='");
+                if ((opex != null)) {
+                    opType = opex.typeCheck();
+                    if (!opType.coercible(new SymbolTable.Type("int", "", null)))
+                        throw new UTDLangException(
+                                "Incompatable types on both sides of '=': " + varType + " and " + opType);
+                }
                 symbolTable.addVar(id, varType);
                 return varType;
             case 1:
