@@ -14,13 +14,15 @@ default: typeCheckingTests
 
 FILE=	Lexer.java parser.java \
 	LexerRules.java TypeCheckingTest.java \
-	Program.java Memberdecls.java Methoddecl.java Fielddecl.java Expr.java Stmt.java \
+	Program.java Memberdecls.java Methoddecl.java \
+	ScannerTest.java Fielddecl.java Expr.java Stmt.java \
 	Argdecl.java Name.java BinaryOp.java Token.java
 
 typeCheckingTests: build
 	@rm -f typeCheckingTestOutputs.txt
 	@for f in ./testscases/*.as; do \
 		echo "Output of file $$f" >> typeCheckingTestOutputs.txt; \
+		$(JAVA) -cp $(CP) ScannerTest $$f >> typeCheckingTestOutputs.txt; \
 		$(JAVA) -cp $(CP) TypeCheckingTest $$f 2>&1 >> typeCheckingTestOutputs.txt; \
 	done;
 	@cat -n typeCheckingTestOutputs.txt

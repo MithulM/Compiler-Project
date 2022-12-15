@@ -8,13 +8,9 @@ Full Semester Long Project to Design a Basic Compiler in **Java** with JFlex and
 ## Running
 > All files in the **testfiles** directory are used for the make tests.
 
-`make lexerTests` prints tokens lexed by the compiler
-
-`make parserTests` prints the code back in the structure as it was parsed into an AST
+`make scannerTests` prints the code back in the structure as it was parsed into an AST
 
 `make typeCheckingTests` prints the parser results plus the result of typechecking the AST
-
-`make interpreterTests` -- can be implimented later, or in favor of a code generation algorithm
 
 ## Grammar
 **Program** → class id { Memberdecls }  
@@ -32,11 +28,10 @@ Full Semester Long Project to Design a Basic Compiler in **Java** with JFlex and
 **ArgdeclList** → Argdecl , ArgdeclList | Argdecl  
 **Argdecl** → Type id | Type id [ ]  
 **Stmts** → Stmt Stmts | λ  
-**Stmt** → if ( Expr ) Stmt OptionalElse | while ( Expr ) Stmt | Name = Expr ;  
-| read ( Readlist ) ; | print ( Printlist ) ; | printline ( Printlinelist ) ;  
-| id ( ) ; | id ( Args ) ; | return ; | return Expr ; | Name ++ ; | Name -- ;  
-| { Fielddecls Stmts } Optionalsemi  
-**OptionalElse** → else Stmt | λ  
+**Stmt** → if (Expr) {Fielddecls Stmt} IfEnd | while (Expr) {Fielddecls Stmt} | Name = Expr;  
+| read(Readlist); | print(Printlist); | printline(Printlinelist); | id() ; | id (Args);  
+| return; | return Expr; | Name++; | Name--; | {Fielddecls Stmts} Optionalsemi  
+**IfEnd** → else Stmt | λ  
 **Name** → id | id [ Expr ]  
 **Args** → Expr , Args | Expr  
 **Readlist** → Name , Readlist | Name  
@@ -103,3 +98,6 @@ Full Semester Long Project to Design a Basic Compiler in **Java** with JFlex and
 - Print
   - Does not work on an array(non-dereferenced)
   - Does not work on any void type
+
+## Known Issue
+Ouput of typeChecking doesn't get appened to the output file.

@@ -15,14 +15,13 @@ public class ReturnStmt extends Stmt {
     }
 
     public SymbolTable.Type typeCheck(String type) throws UTDLangException {
+        if (exp == null)
+            return new SymbolTable.Type("void", "", null);
         SymbolTable.Type t = null;
-        if (exp != null) {
-            t = exp.typeCheck();
-            if (!t.coercible(type))
-                throw new UTDLangException("Incompatible returns from " + t.type + " to " + type);
-            return t;
-        }
-        return new SymbolTable.Type("void", "", null);
+        t = exp.typeCheck();
+        if (!t.coercible(type))
+            throw new UTDLangException("Incompatible returns from " + t.type + " to " + type);
+        return t;
     }
 
     @Override
